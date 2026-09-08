@@ -16,8 +16,8 @@ Open `index.html` in any browser. That's the whole setup.
 - **Interactive:** drag-to-compare before/after cases, a VITA shade guide,
   animated counters, FAQ accordion, validated booking form, scroll progress,
   light/dark theme toggle, mobile menu.
-- **Type:** Fraunces (display), Instrument Sans (UI), IBM Plex Mono (clinical
-  labels), loaded from Google Fonts.
+- **Type:** Outfit — one geometric sans across headings, body and labels, with
+  weight carrying the hierarchy. Loaded from Google Fonts.
 - **Accessibility:** skip link, visible focus states, ARIA on the comparison
   sliders and accordion, `prefers-reduced-motion` support, 44px touch targets.
 
@@ -30,8 +30,9 @@ SVG icon sprite, the page markup, then the scripts.
   everywhere, in both light and dark themes.
 - **Clinic details** — name, address, phone and hours appear in the utility bar,
   the contact section and the footer.
-- **Artwork** — the illustrations are inline SVG. To use real photography,
-  replace an `<svg>` block with an `<img>` of the same aspect ratio.
+- **Photos** — every illustrated block is also a photo slot. Drop a file into
+  `assets/` with the name listed in `assets/README.md` and it takes over
+  automatically; remove it and the illustration comes back.
 
 ## Note on content
 
