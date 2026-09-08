@@ -163,7 +163,7 @@ p { margin: 0; }
 }
 .lede { color: var(--ink-2); font-size: clamp(16px, 1.6vw, 18px); max-width: 62ch; }
 
-.h-xl { font-size: clamp(42px, 7.4vw, 92px); }
+.h-xl { font-size: clamp(38px, 5.6vw, 76px); }
 .h-l  { font-size: clamp(32px, 4.4vw, 58px); }
 .h-m  { font-size: clamp(24px, 2.6vw, 34px); }
 .h-s  { font-size: clamp(19px, 1.5vw, 22px); letter-spacing: -0.015em; }
@@ -304,7 +304,7 @@ p { margin: 0; }
 </style>
 <style>
 /* ---------- hero ---------- */
-.hero { position: relative; overflow: hidden; padding-block: clamp(48px, 6vw, 86px) clamp(56px, 7vw, 104px); }
+.hero { position: relative; overflow: hidden; padding-block: clamp(44px, 5vw, 76px) clamp(48px, 6vw, 88px); }
 .hero-aura {
   position: absolute; inset: -20% -10% auto -10%; height: 90%;
   background:
@@ -322,6 +322,7 @@ p { margin: 0; }
 .hero .wrap { position: relative; display: grid; grid-template-columns: 1.06fr .94fr; gap: clamp(28px, 4vw, 60px); align-items: center; }
 .hero-copy > * + * { margin-top: 22px; }
 .hero h1 { font-weight: 700; letter-spacing: -0.045em; }
+.hero h1 span, .hero h1 em { display: block; white-space: nowrap; }
 .hero h1 em {
   font-style: normal; color: var(--aqua);
   position: relative;
@@ -334,10 +335,6 @@ p { margin: 0; }
 }
 @keyframes sweep { to { transform: scaleX(1); } }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-.hero-meta { display: flex; gap: 26px; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid var(--line-soft); margin-top: 30px; }
-.hero-meta div { display: flex; flex-direction: column; gap: 2px; }
-.hero-meta b { font-family: var(--display); font-size: 27px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-.hero-meta small { font-family: var(--label); font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); }
 
 /* hero art: enamel arc portrait plate */
 .hero-art { position: relative; }
@@ -348,7 +345,6 @@ p { margin: 0; }
   aspect-ratio: 4 / 4.4;
 }
 .plate svg { width: 100%; height: 100%; }
-.float-card {
   position: absolute;
   background: color-mix(in srgb, var(--surface) 88%, transparent);
   backdrop-filter: blur(14px) saturate(1.5);
@@ -359,27 +355,54 @@ p { margin: 0; }
   display: flex; align-items: center; gap: 12px;
   animation: bob 6s ease-in-out infinite;
 }
-.float-card small { display: block; font-family: var(--label); font-size: 9.5px; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-3); }
-.float-card b { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
-.float-card .chip { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--mint-wash); color: var(--aqua); flex: none; }
-.float-card .chip svg { width: 18px; height: 18px; }
-.fc-1 { top: 6%; right: -4%; }
-.fc-2 { bottom: 16%; left: -7%; animation-delay: -3s; }
-@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-.shade-strip { position: absolute; bottom: 5%; right: 6%; display: flex; gap: 4px; padding: 8px; border-radius: 12px; background: rgba(255,255,255,.14); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.2); }
-.shade-strip i { width: 15px; height: 30px; border-radius: 3px; display: block; }
-.shade-strip span { font-family: var(--label); font-size: 9px; color: #fff; letter-spacing: .1em; align-self: center; padding-left: 5px; opacity: .8; }
 
 @media (max-width: 900px) {
   .hero .wrap { grid-template-columns: 1fr; }
   .hero-art { order: -1; max-width: 460px; }
-  .fc-1 { right: 2%; } .fc-2 { left: 0; }
+}
+
+/* ---------- hero CTA + rating ---------- */
+.btn-hero {
+  --btn-bg: var(--deep); --btn-fg: #FFFFFF;
+  text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 700;
+  padding: 17px 30px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .btn-hero { --btn-bg: var(--aqua); --btn-fg: #02171D; }
+}
+:root[data-theme="dark"] .btn-hero { --btn-bg: var(--aqua); --btn-fg: #02171D; }
+.btn-plain {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 700;
+  color: var(--ink); padding: 17px 8px;
+  border-bottom: 2px solid transparent;
+  transition: color .2s ease, border-color .2s ease;
+}
+.btn-plain:hover { color: var(--aqua); border-bottom-color: var(--aqua); }
+
+.hero-rating { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 26px; font-size: 14px; color: var(--ink-3); }
+.hero-rating .stars { display: inline-flex; gap: 2px; color: var(--gold); }
+.hero-rating .stars svg { width: 15px; height: 15px; }
+.hero-rating b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* name chip on the hero portrait */
+.doc-chip {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 18px 22px;
+  background: linear-gradient(transparent, rgba(4,18,25,.86) 42%);
+  color: #fff;
+}
+.doc-chip small { display: block; font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--mint); margin-bottom: 3px; }
+.doc-chip b { font-family: var(--display); font-size: 20px; font-weight: 600; letter-spacing: -0.03em; }
+.doc-chip-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  background: var(--aqua); color: #02171D;
+  padding: 7px 11px; border-radius: 999px; flex: none;
 }
 
 /* ---------- quick action bento ---------- */
-.quick { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: -46px; position: relative; z-index: 3; }
-.qcard {
   position: relative; overflow: hidden;
   background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r-l);
   padding: 24px 22px 22px; min-height: 178px;
@@ -387,24 +410,6 @@ p { margin: 0; }
   box-shadow: var(--shadow-sm);
   transition: transform .3s cubic-bezier(.2,.8,.3,1), box-shadow .3s ease, border-color .3s ease;
 }
-.qcard:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--aqua) 40%, var(--line-soft)); }
-.qcard-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.qcard .tag { font-family: var(--label); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
-.qcard h3 { font-size: 20px; }
-.qcard p { font-size: 13.5px; color: var(--ink-2); line-height: 1.5; }
-.qcard .chip { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--mint-wash); color: var(--aqua); }
-.qcard .chip svg { width: 20px; height: 20px; }
-.qcard.dark { background: linear-gradient(158deg, var(--deep-2), var(--deep)); border-color: transparent; color: #fff; }
-.qcard.dark h3 { color: #fff; }
-.qcard.dark p { color: var(--on-dark-2); }
-.qcard.dark .tag { color: var(--mint); }
-.qcard.dark .chip { background: rgba(255,255,255,.12); color: var(--mint); }
-.qcard.review .stars { color: var(--gold); display: flex; gap: 2px; }
-.qcard.review .stars svg { width: 14px; height: 14px; }
-.qcard.review blockquote { margin: 0; font-family: var(--display); font-size: 15px; font-weight: 500; line-height: 1.48; letter-spacing: -0.015em; }
-.qcard.review cite { font-style: normal; font-family: var(--label); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
-@media (max-width: 980px) { .quick { grid-template-columns: repeat(2, 1fr); margin-top: 0; } }
-@media (max-width: 520px) { .quick { grid-template-columns: 1fr; } }
 
 /* ---------- section head ---------- */
 .sec-head { display: flex; gap: 30px; align-items: flex-end; justify-content: space-between; margin-bottom: clamp(30px, 4vw, 52px); flex-wrap: wrap; }
@@ -861,134 +866,45 @@ p { margin: 0; }
   <div class="wrap">
     <div class="hero-copy">
       <span class="eyebrow reveal">Cosmetic &amp; family dentistry · Midtown</span>
-      <h1 class="h-xl reveal d1">Your best smile <em>starts here.</em></h1>
+      <h1 class="h-xl reveal d1"><span>Your best smile</span><em>starts here.</em></h1>
       <p class="lede reveal d2">Modern dentistry designed around you. From six-month preventive care to full smile makeovers, every visit is quiet, unhurried and completely stress-free — with the treatment plan explained before anything begins.</p>
       <div class="hero-cta reveal d3">
-        <a class="btn btn-primary" href="#book"><svg><use href="#i-calendar"/></svg> Book your visit</a>
-        <a class="btn btn-ghost" href="#services">Explore treatments <svg><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-hero" href="#book">Book an Appointment <svg><use href="#i-arrow"/></svg></a>
+        <a class="btn-plain" href="#services">Our Services</a>
       </div>
-      <div class="hero-meta reveal d3">
-        <div><b>4.9</b><small>2,500+ Google reviews</small></div>
-        <div><b>25k+</b><small>Smiles cared for</small></div>
-        <div><b>Same&nbsp;day</b><small>Emergency relief</small></div>
-      </div>
+      <p class="hero-rating reveal d3">
+        <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+        <b>4.9/5</b><span>from 2,500+ patients in New York</span>
+      </p>
     </div>
 
     <div class="hero-art reveal d2">
       <div class="plate">
-        <img class="photo" src="assets/hero-smile.jpg" alt="A patient smiling after treatment at BrightSmile Dental" onerror="this.remove()">
-        <svg viewBox="0 0 440 484" role="img" aria-label="Illustration of a smile arch with enamel shade analysis">
+        <img class="photo" src="assets/hero-smile.jpg" alt="Dr. Emily Carter at BrightSmile Dental" onerror="this.remove()">
+        <svg viewBox="0 0 440 484" role="img" aria-label="Portrait placeholder for the lead dentist">
           <defs>
-            <radialGradient id="glow" cx="50%" cy="38%" r="62%">
-              <stop offset="0%" stop-color="#7EE0D2" stop-opacity=".55"/>
-              <stop offset="60%" stop-color="#0E9E92" stop-opacity=".12"/>
-              <stop offset="100%" stop-color="#06222E" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="enamel" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#FFFFFF"/>
-              <stop offset="100%" stop-color="#CFEDE8"/>
-            </linearGradient>
-            <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#7EE0D2" stop-opacity="0"/>
-              <stop offset="50%" stop-color="#7EE0D2" stop-opacity=".9"/>
-              <stop offset="100%" stop-color="#7EE0D2" stop-opacity="0"/>
+            <linearGradient id="heroBg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0F4451"/><stop offset="100%" stop-color="#06222E"/>
             </linearGradient>
           </defs>
-          <rect width="440" height="484" fill="#06222E"/>
-          <rect width="440" height="484" fill="url(#glow)"/>
-          <g stroke="#7EE0D2" stroke-opacity=".13" fill="none">
-            <path d="M0 60h440M0 130h440M0 200h440M0 270h440M0 340h440M0 410h440"/>
-            <path d="M60 0v484M130 0v484M200 0v484M270 0v484M340 0v484M410 0v484"/>
-          </g>
-          <g fill="none" stroke="#7EE0D2" stroke-opacity=".26">
-            <circle cx="220" cy="196" r="150"/><circle cx="220" cy="196" r="118"/><circle cx="220" cy="196" r="186" stroke-dasharray="3 9"/>
-          </g>
-          <!-- smile arch: upper arcade -->
-          <g fill="url(#enamel)">
-            <g transform="translate(220 196)">
-              <g transform="rotate(-52) translate(0 -118)"><path d="M-14-16h28c4 0 7 3 7 7v14c0 10-6 17-14 17s-14-7-14-17V-9c0-4 3-7 7-7Z"/></g>
-              <g transform="rotate(-38) translate(0 -122)"><path d="M-15-18h30c4 0 7 3 7 7v16c0 11-7 19-15 19s-15-8-15-19v-16c0-4 3-7 7-7Z"/></g>
-              <g transform="rotate(-24) translate(0 -126)"><path d="M-16-20h32c4 0 7 3 7 7v18c0 12-8 21-16 21s-16-9-16-21v-18c0-4 3-7 7-7Z"/></g>
-              <g transform="rotate(-9) translate(0 -128)"><path d="M-18-22h36c4 0 7 3 7 7v20c0 13-9 23-18 23s-18-10-18-23v-20c0-4 3-7 7-7Z"/></g>
-              <g transform="rotate(9) translate(0 -128)"><path d="M-18-22h36c4 0 7 3 7 7v20c0 13-9 23-18 23s-18-10-18-23v-20c0-4 3-7 7-7Z"/></g>
-              <g transform="rotate(24) translate(0 -126)"><path d="M-16-20h32c4 0 7 3 7 7v18c0 12-8 21-16 21s-16-9-16-21v-18c0-4 3-7 7-7Z"/></g>
-              <g transform="rotate(38) translate(0 -122)"><path d="M-15-18h30c4 0 7 3 7 7v16c0 11-7 19-15 19s-15-8-15-19v-16c0-4 3-7 7-7Z"/></g>
-              <g transform="rotate(52) translate(0 -118)"><path d="M-14-16h28c4 0 7 3 7 7v14c0 10-6 17-14 17s-14-7-14-17V-9c0-4 3-7 7-7Z"/></g>
-            </g>
-          </g>
-          <!-- lower arcade, dimmed -->
-          <g fill="#DCF2EE" fill-opacity=".34">
-            <g transform="translate(220 196)">
-              <g transform="rotate(128) translate(0 -112)"><path d="M-13-14h26c3 0 6 3 6 6v13c0 9-6 15-13 15s-13-6-13-15V-8c0-3 3-6 6-6Z"/></g>
-              <g transform="rotate(146) translate(0 -116)"><path d="M-14-16h28c3 0 6 3 6 6v15c0 10-6 17-14 17s-14-7-14-17v-15c0-3 3-6 6-6Z"/></g>
-              <g transform="rotate(-146) translate(0 -116)"><path d="M-14-16h28c3 0 6 3 6 6v15c0 10-6 17-14 17s-14-7-14-17v-15c0-3 3-6 6-6Z"/></g>
-              <g transform="rotate(-128) translate(0 -112)"><path d="M-13-14h26c3 0 6 3 6 6v13c0 9-6 15-13 15s-13-6-13-15V-8c0-3 3-6 6-6Z"/></g>
-            </g>
-          </g>
-          <!-- scanning sweep -->
-          <rect x="0" y="150" width="440" height="2" fill="url(#sweep)">
-            <animate attributeName="y" values="70;330;70" dur="6s" repeatCount="indefinite"/>
-          </rect>
-          <!-- clinical annotations -->
-          <g font-family="Outfit, sans-serif" font-size="10" fill="#7EE0D2" letter-spacing="1.6">
-            <text x="26" y="40" fill-opacity=".85">DIGITAL SMILE DESIGN</text>
-            <text x="26" y="452" fill-opacity=".6">ARCH SCAN · 0.02 mm</text>
-            <text x="300" y="452" fill-opacity=".6">TOOTH 8 / 9</text>
-          </g>
-          <g stroke="#7EE0D2" stroke-opacity=".55" fill="none">
-            <path d="M220 66v-22M198 44h44"/>
-            <path d="M330 250l38 26"/>
-          </g>
-          <text x="372" y="286" font-family="Outfit, sans-serif" font-size="10" fill="#7EE0D2" fill-opacity=".8">B1</text>
+          <rect width="440" height="484" fill="url(#heroBg)"/>
+          <circle cx="220" cy="190" r="150" fill="#17C3B2" fill-opacity=".13"/>
+          <path d="M220 96c42 0 64 31 64 72 0 37-27 67-64 67s-64-30-64-67c0-41 22-72 64-72Z" fill="#DCF2EE"/>
+          <path d="M156 156c0-45 25-70 64-70s64 25 64 70c-9-22-28-33-64-33s-55 11-64 33Z" fill="#0B3141"/>
+          <path d="M220 244c64 0 117 42 128 103 4 22 6 42 6 58H86c0-16 2-36 6-58 11-61 64-103 128-103Z" fill="#F3FBF9"/>
+          <path d="M220 244c13 0 24 2 35 5l-35 61-35-61c11-3 22-5 35-5Z" fill="#17C3B2" fill-opacity=".32"/>
         </svg>
-      </div>
-
-      <div class="float-card fc-1">
-        <span class="chip"><svg><use href="#i-scan"/></svg></span>
-        <span><small>Technology</small><b>3D Digital Smile Design</b></span>
-      </div>
-      <div class="float-card fc-2">
-        <span class="chip"><svg><use href="#i-clock"/></svg></span>
-        <span><small>Average wait</small><b>Seen in under 9 minutes</b></span>
-      </div>
-      <div class="shade-strip" aria-hidden="true">
-        <i style="background:#EDE3CE"></i><i style="background:#F2EBDA"></i><i style="background:#F7F2E7"></i><i style="background:#FCF9F3"></i>
-        <span>A3 → B1</span>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- ================= quick actions ================= -->
-<section class="section" style="padding-top:0" id="about">
-  <div class="wrap">
-    <div class="quick">
-      <article class="qcard dark reveal">
-        <div class="qcard-top"><span class="chip"><svg><use href="#i-emergency"/></svg></span><span class="tag">24 / 7 line</span></div>
-        <div><h3>Emergency care</h3><p>Same-day relief for pain, swelling or a broken tooth — call and we hold a chair.</p></div>
-      </article>
-      <article class="qcard reveal d1">
-        <div class="qcard-top"><span class="chip"><svg><use href="#i-sparkle"/></svg></span><span class="tag">$100 off</span></div>
-        <div><h3>New patients</h3><p>Full exam, digital X-rays and a written treatment plan on your first visit.</p></div>
-      </article>
-      <article class="qcard review reveal d2">
-        <div class="qcard-top">
-          <span class="stars" aria-label="Rated 5 out of 5"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
-          <span class="tag">Google review</span>
+        <div class="doc-chip">
+          <div><small>Lead specialist</small><b>Dr. Emily Carter</b></div>
+          <span class="doc-chip-tag">DDS</span>
         </div>
-        <blockquote>“Dr. Carter rebuilt my two front teeth. Nobody can tell — including my dentist brother.”</blockquote>
-        <cite>Michael R. · New York</cite>
-      </article>
-      <article class="qcard reveal d3">
-        <div class="qcard-top"><span class="chip"><svg><use href="#i-tooth"/></svg></span><span class="tag">Most booked</span></div>
-        <div><h3>Smile services</h3><p>Whitening, veneers, implants and clear aligners under one roof.</p></div>
-        <a class="arrow-link" href="#services">See all treatments <svg><use href="#i-arrow"/></svg></a>
-      </article>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= services ================= -->
-<section class="section" id="services" style="padding-top:clamp(40px,5vw,80px)">
+<section class="section" id="services">
   <div class="wrap">
     <div class="sec-head reveal">
       <div>
@@ -1096,7 +1012,7 @@ p { margin: 0; }
 <!-- ================= why us ================= -->
 <section class="section">
   <div class="wrap">
-    <div class="sec-head center reveal">
+    <div class="sec-head center reveal" id="about">
       <div>
         <span class="eyebrow">Why patients choose us</span>
         <h2 class="h-l">Dentistry designed <span class="gild">around you.</span></h2>
