@@ -333,11 +333,12 @@ p { margin: 0; }
 /* hero art: enamel arc portrait plate */
 .hero-art { position: relative; }
 .plate {
-  position: relative; border-radius: var(--r-xl) var(--r-xl) var(--r-xl) 90px;
+  position: relative; border-radius: 30px;
   overflow: hidden; box-shadow: var(--shadow-lg);
   background: linear-gradient(160deg, var(--deep-2), var(--deep));
   aspect-ratio: 4 / 4.4;
 }
+.plate > svg, .plate > .photo { height: 100%; }
 .plate svg { width: 100%; height: 100%; }
   position: absolute;
   background: color-mix(in srgb, var(--surface) 88%, transparent);
@@ -384,16 +385,18 @@ p { margin: 0; }
 .doc-chip {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
   display: flex; align-items: center; justify-content: space-between; gap: 14px;
-  padding: 18px 22px;
-  background: linear-gradient(transparent, rgba(4,18,25,.86) 42%);
-  color: #fff;
+  padding: 20px 24px;
+  background: #FFFFFF;
+  color: var(--deep);
+  border-radius: 30px 30px 0 0;
 }
-.doc-chip small { display: block; font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--mint); margin-bottom: 3px; }
-.doc-chip b { font-family: var(--display); font-size: 20px; font-weight: 600; letter-spacing: -0.03em; }
+.doc-chip small { display: block; font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #7B8C93; margin-bottom: 4px; }
+.doc-chip b { font-family: var(--display); font-size: 21px; font-weight: 600; letter-spacing: -0.03em; color: #08222C; }
 .doc-chip-tag {
-  font-size: 11px; font-weight: 700; letter-spacing: .1em;
-  background: var(--aqua); color: #02171D;
-  padding: 7px 11px; border-radius: 999px; flex: none;
+  display: grid; place-items: center; flex: none;
+  width: 42px; height: 42px; border-radius: 50%;
+  font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  background: var(--deep); color: #FFFFFF;
 }
 
 /* ---------- quick action bento ---------- */
