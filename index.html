@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BrightSmile Dental</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -114,7 +119,7 @@
 
 /* ---------- base ---------- */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 104px; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: 118px; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   background: var(--bg);
@@ -316,7 +321,7 @@ p { margin: 0; }
 .hero .wrap { position: relative; display: grid; grid-template-columns: 1.06fr .94fr; gap: clamp(28px, 4vw, 60px); align-items: center; }
 .hero-copy > * + * { margin-top: 22px; }
 .hero h1 { font-weight: 700; letter-spacing: -0.045em; }
-.hero h1 span, .hero h1 em { display: block; white-space: nowrap; }
+.hero h1 span, .hero h1 em { display: block; }
 .hero h1 em {
   font-style: normal; color: var(--aqua);
   position: relative;
@@ -383,63 +388,184 @@ p { margin: 0; }
 .sec-head.center { flex-direction: column; align-items: center; text-align: center; }
 .sec-head.center > div { display: flex; flex-direction: column; align-items: center; }
 
-/* ---------- services ---------- */
-.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: var(--r-l); overflow: hidden; }
-.svc {
-  position: relative; background: var(--surface); padding: clamp(26px, 3vw, 38px);
-  display: flex; flex-direction: column; gap: 14px; min-height: 258px;
-  transition: background .3s ease;
+/* ============ services — scroll-pinned stage ============ */
+.svc-track { position: relative; }
+.svc-pin {
+  position: sticky; top: 0;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding-block: 96px 40px;
 }
-.svc::before {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(120% 100% at 0% 0%, color-mix(in srgb, var(--mint) 30%, transparent), transparent 55%);
-  opacity: 0; transition: opacity .35s ease;
+.svc-stage {
+  width: 100%;
+  display: grid; grid-template-columns: .92fr 1.08fr;
+  gap: clamp(24px, 4vw, 64px); align-items: center;
 }
-.svc:hover::before { opacity: 1; }
-.svc > * { position: relative; }
-.svc-num { font-family: var(--label); font-size: 10px; letter-spacing: .16em; color: var(--ink-3); }
-.svc-icon { width: 46px; height: 46px; color: var(--aqua); }
-.svc h3 { font-size: 22px; }
-.svc p { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; flex: 1; }
-.svc .meta { font-family: var(--label); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); display: flex; gap: 8px; align-items: center; }
-.svc .meta::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--aqua); }
-@media (max-width: 940px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
 
-/* ---------- split feature ---------- */
-.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 76px); align-items: center; }
-.split.reverse .split-art { order: 2; }
-.split-art { position: relative; border-radius: var(--r-l); overflow: hidden; box-shadow: var(--shadow-lg); background: linear-gradient(150deg, var(--deep-2), var(--deep)); aspect-ratio: 5/4.6; }
-.split-art svg { width: 100%; height: 100%; }
-.split-copy > * + * { margin-top: 20px; }
-.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
-.checks li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--ink-2); }
-.checks svg { width: 21px; height: 21px; color: var(--aqua); flex: none; margin-top: 1px; }
+/* left column */
+.svc-head h2 { font-size: clamp(28px, 3.4vw, 44px); margin-top: 12px; }
+
+.svc-list {
+  position: relative; overflow: hidden;
+  height: 300px; margin-top: clamp(22px, 3vw, 36px);
+  -webkit-mask-image: linear-gradient(#000 62%, rgba(0,0,0,.25) 92%, transparent);
+  mask-image: linear-gradient(#000 62%, rgba(0,0,0,.25) 92%, transparent);
+  transition: height .55s cubic-bezier(.2,.8,.3,1), margin-top .55s cubic-bezier(.2,.8,.3,1);
+}
+/* outro beat: the last service swipes out, the list collapses and the
+   button rises into its place while the panel lifts */
+.svc-list.is-out { height: 0; margin-top: 0; }
+.svc-inner { transition: transform .55s cubic-bezier(.2,.8,.3,1); }
+.svc-item {
+  width: 100%; text-align: left; background: none;
+  border: 0; border-top: 1px solid var(--line);
+  padding: 22px 2px;
+  display: grid; grid-template-columns: 1fr auto; gap: 14px 18px; align-items: center;
+  opacity: .3; transition: opacity .45s ease;
+}
+.svc-item.is-on { opacity: 1; }
+.svc-item .title {
+  grid-column: 1; display: flex; align-items: center; gap: 11px;
+  font-family: var(--display); font-size: clamp(19px, 2vw, 24px);
+  font-weight: 600; letter-spacing: -0.03em;
+}
+.svc-item .ico { width: 21px; height: 21px; color: var(--aqua); flex: none; }
+.svc-item p { grid-column: 1; font-size: 15px; color: var(--ink-2); line-height: 1.55; max-width: 46ch; }
+.svc-item .go {
+  grid-column: 2; grid-row: 1 / span 2; align-self: center;
+  width: 38px; height: 38px; border-radius: 11px;
+  border: 1px solid var(--line); background: var(--surface-2);
+  display: grid; place-items: center; color: var(--ink-2);
+  transition: background .3s, border-color .3s, color .3s;
+}
+.svc-item .go svg { width: 15px; height: 15px; transform: rotate(-45deg); }
+.svc-item.is-on .go { border-color: var(--aqua); color: var(--aqua); }
+.svc-ask { margin-top: clamp(18px, 2.5vw, 28px); transition: transform .55s cubic-bezier(.2,.8,.3,1); }
+
+/* right column */
+.svc-visual {
+  position: relative; border-radius: var(--r-xl); overflow: hidden;
+  aspect-ratio: 5/4; box-shadow: var(--shadow-lg);
+  background: linear-gradient(165deg, var(--aqua-bright), var(--deep));
+  padding: clamp(18px, 3vw, 40px);
+  transition: transform .55s cubic-bezier(.2,.8,.3,1), opacity .55s ease;
+}
+.svc-visual.is-out { transform: translateY(-40px); opacity: 0; }
+.svc-slide {
+  position: absolute; inset: clamp(18px, 3vw, 40px);
+  border-radius: var(--r-l); overflow: hidden; background: var(--surface);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(20px, 3vw, 34px);
+  opacity: 0; transform: translateY(16px) scale(.985);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.2,.8,.3,1);
+  pointer-events: none;
+}
+.svc-slide.is-on { opacity: 1; transform: none; }
+.svc-slide .tag {
+  font-family: var(--label); font-size: 10.5px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.svc-slide .name {
+  font-family: var(--display); font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 600; letter-spacing: -0.03em; margin-top: 8px;
+}
+.svc-slide .photo { z-index: 1; }
+
+@media (max-width: 900px) {
+  .svc-stage { grid-template-columns: 1fr; gap: 20px; }
+  .svc-visual { order: -1; aspect-ratio: 16/10; }
+  .svc-pin { padding-block: 84px 28px; }
+  .svc-list { height: 270px; }
+}
+
+/* ---------- featured service ---------- */
+.feat { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.feat-art {
+  position: relative; border-radius: var(--r-xl); overflow: hidden;
+  box-shadow: var(--shadow-lg); aspect-ratio: 5/4.4;
+  background: linear-gradient(165deg, var(--deep-2), var(--deep));
+  padding: clamp(20px, 3vw, 40px);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.feat-art > * { position: relative; z-index: 2; }
+.feat-art .photo { z-index: 1; }
+.feat-art .tag {
+  align-self: flex-start;
+  font-family: var(--label); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: #032027; background: var(--mint); padding: 7px 13px; border-radius: 999px;
+}
+.feat-art .cap { color: #fff; }
+.feat-art .cap b { display: block; font-family: var(--display); font-size: clamp(20px, 2.4vw, 27px); font-weight: 600; letter-spacing: -0.03em; }
+.feat-art .cap span { display: block; margin-top: 6px; font-size: 14px; color: var(--on-dark-2); }
+
+.feat-copy > * + * { margin-top: 18px; }
+.feat-copy .checks { margin-top: 26px; }
+.feat-copy .cta { margin-top: 30px; }
+
+.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+.checks li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--ink-2); line-height: 1.55; }
+.checks svg { width: 21px; height: 21px; color: var(--aqua); flex: none; margin-top: 2px; }
 .checks b { color: var(--ink); font-weight: 600; }
-@media (max-width: 860px) { .split { grid-template-columns: 1fr; } .split.reverse .split-art { order: 0; } }
+@media (max-width: 860px) { .feat { grid-template-columns: 1fr; } .feat-art { order: -1; aspect-ratio: 16/10; } }
 
-/* ---------- values row ---------- */
-.values { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 3vw, 40px); }
-.value { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.value-ring { width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; background: var(--mint-wash); color: var(--aqua); position: relative; }
-.value-ring::after { content: ""; position: absolute; inset: -7px; border-radius: 50%; border: 1px dashed color-mix(in srgb, var(--aqua) 40%, transparent); }
-.value-ring svg { width: 30px; height: 30px; }
-.value h3 { font-size: 19px; }
-.value p { font-size: 14px; color: var(--ink-2); max-width: 30ch; }
-@media (max-width: 880px) { .values { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 460px) { .values { grid-template-columns: 1fr; } }
+/* ---------- why patients choose us ---------- */
+.why-track { position: relative; }
+.why-pin {
+  position: sticky; top: 0; min-height: 100vh;
+  display: flex; align-items: center; padding-block: 96px 40px;
+}
+.why { width: 100%; display: grid; grid-template-columns: .78fr 1.22fr; gap: clamp(28px, 5vw, 76px); align-items: start; }
+.why-intro h2 { margin-top: 14px; }
+.why-intro .lede { margin-top: 16px; }
+.why-stats {
+  margin-top: clamp(24px, 3vw, 34px);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4px 10px;
+  background: linear-gradient(150deg, var(--deep-2), var(--deep) 70%);
+  border-radius: var(--r-l);
+  padding: clamp(18px, 2.4vw, 26px);
+}
+.why-stats div { padding: 8px 0; }
+.why-stats b {
+  display: block; font-family: var(--display); font-size: clamp(23px, 2.3vw, 29px);
+  font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.why-stats span {
+  display: block; margin-top: 6px; font-family: var(--label);
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark-2);
+}
 
-/* ---------- stats band ---------- */
-.stats-band { background: linear-gradient(140deg, var(--deep-2) 0%, var(--deep) 60%); color: #fff; border-radius: var(--r-xl); overflow: hidden; position: relative; }
-.stats-band .grain { opacity: .3; }
-.stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
-.stat { padding: clamp(34px, 4.4vw, 58px) 26px; text-align: center; border-right: 1px solid rgba(255,255,255,.09); }
-.stat:last-child { border-right: 0; }
-.stat b { display: block; font-family: var(--display); font-size: clamp(38px, 5vw, 62px); font-weight: 700; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
-.stat span { display: block; margin-top: 10px; font-family: var(--label); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-dark-2); }
-@media (max-width: 780px) { .stats-inner { grid-template-columns: repeat(2, 1fr); } .stat:nth-child(2) { border-right: 0; } .stat:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.09); } }
-</style>
-<style>
+.why-list { display: grid; }
+.why-row {
+  display: grid; grid-template-columns: 52px 1fr auto; gap: 10px 20px; align-items: start;
+  padding: clamp(22px, 2.6vw, 30px) 0; border-top: 1px solid var(--line);
+}
+.why-row:first-child { border-top: 0; padding-top: 0; }
+.js .why-row { opacity: .26; transform: translateY(10px); transition: opacity .5s ease, transform .5s cubic-bezier(.2,.8,.3,1); }
+.js .why-row.is-on { opacity: 1; transform: none; }
+.js .why-row.is-on .chip { background: var(--aqua); color: #fff; }
+.why-row .chip { transition: background .5s ease, color .5s ease; }
+@media (prefers-reduced-motion: reduce) { .js .why-row { opacity: 1; transform: none; } }
+.why-row .chip {
+  grid-row: 1 / span 2; width: 52px; height: 52px; border-radius: 16px;
+  background: var(--mint-wash); color: var(--aqua); display: grid; place-items: center;
+}
+.why-row .chip svg { width: 23px; height: 23px; }
+.why-row h3 { font-size: clamp(18px, 1.9vw, 21px); align-self: center; }
+.why-row p { grid-column: 2; font-size: 14.5px; color: var(--ink-2); line-height: 1.55; max-width: 52ch; }
+.why-row .proof {
+  grid-column: 3; grid-row: 1 / span 2; align-self: center; white-space: nowrap;
+  font-family: var(--label); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3); border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px;
+}
+@media (max-width: 900px) { .why { grid-template-columns: 1fr; gap: 26px; } .why-pin { padding-block: 84px 28px; } }
+@media (max-width: 620px) {
+  .why-row { grid-template-columns: 44px 1fr; }
+  .why-row .chip { width: 44px; height: 44px; border-radius: 13px; }
+  .why-row .proof { grid-column: 2; grid-row: auto; justify-self: start; margin-top: 4px; }
+}
+
 /* ---------- team ---------- */
 .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 26px); }
 .doc { background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r-l); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .3s cubic-bezier(.2,.8,.3,1), box-shadow .3s ease; }
@@ -461,7 +587,7 @@ p { margin: 0; }
 @media (max-width: 580px) { .team-grid { grid-template-columns: 1fr; } }
 
 /* ---------- before / after slider ---------- */
-.compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 36px); }
+.compare-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 26px); }
 .compare {
   position: relative; border-radius: var(--r-l); overflow: hidden;
   border: 1px solid var(--line-soft); box-shadow: var(--shadow-md);
@@ -489,42 +615,8 @@ p { margin: 0; }
 }
 .compare .lbl.b { left: 14px; background: rgba(6,34,46,.62); color: #fff; }
 .compare .lbl.a { right: 14px; background: var(--aqua); color: #032027; }
-.compare-cap { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
-.compare-cap h3 { font-size: 19px; }
-.compare-cap span { font-family: var(--label); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
-@media (max-width: 760px) { .compare-row { grid-template-columns: 1fr; } }
-
-/* shade guide — VITA classical */
-.shade-guide { margin-top: clamp(30px, 4vw, 52px); background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--r-l); padding: clamp(22px, 3vw, 34px); display: grid; grid-template-columns: 260px 1fr; gap: clamp(22px, 3vw, 42px); align-items: center; }
-.shade-guide h3 { font-size: 22px; margin-bottom: 8px; }
-.shade-guide p { font-size: 14px; color: var(--ink-2); }
-.shades { display: flex; gap: 6px; align-items: flex-end; }
-.shades button {
-  flex: 1; border: 1px solid var(--line); border-radius: 8px 8px 12px 12px; padding: 0;
-  height: 78px; position: relative; transition: transform .22s cubic-bezier(.2,.8,.3,1), box-shadow .22s ease, border-color .2s;
-}
-.shades button:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-.shades button[aria-pressed="true"] { border-color: var(--aqua); box-shadow: 0 0 0 2px color-mix(in srgb, var(--aqua) 45%, transparent); transform: translateY(-5px); }
-.shades button span { position: absolute; inset: auto 0 -22px; font-family: var(--label); font-weight: 500; font-size: 10px; letter-spacing: .06em; color: var(--ink-3); }
-.shade-out { margin-top: 34px; display: flex; gap: 12px; align-items: center; font-size: 14px; color: var(--ink-2); }
-.shade-out b { font-family: var(--label); font-size: 12px; letter-spacing: .1em; color: var(--aqua); }
-@media (max-width: 780px) { .shade-guide { grid-template-columns: 1fr; } }
-
-/* ---------- technology (dark) ---------- */
-.tech { background: linear-gradient(160deg, var(--deep-2), var(--deep) 70%); color: #fff; position: relative; overflow: hidden; }
-.tech h2, .tech h3 { color: #fff; }
-.tech .eyebrow { color: var(--mint); }
-.tech .lede { color: var(--on-dark-2); }
-.tech-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(30px, 5vw, 70px); align-items: center; position: relative; }
-.tech-list { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 34px; }
-.tech-item { display: flex; gap: 14px; }
-.tech-item .chip { width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); display: grid; place-items: center; color: var(--mint); flex: none; }
-.tech-item .chip svg { width: 20px; height: 20px; }
-.tech-item h4 { font-family: var(--sans); font-size: 14.5px; font-weight: 600; letter-spacing: 0; margin-bottom: 4px; color: #fff; }
-.tech-item p { font-size: 13.5px; color: var(--on-dark-2); line-height: 1.5; }
-.tech-art { border-radius: var(--r-l); overflow: hidden; border: 1px solid rgba(255,255,255,.1); aspect-ratio: 5/5.2; background: rgba(255,255,255,.03); }
-.tech-art svg { width: 100%; height: 100%; }
-@media (max-width: 900px) { .tech-grid { grid-template-columns: 1fr; } .tech-list { grid-template-columns: 1fr; } }
+@media (max-width: 1000px) { .compare-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 660px) { .compare-row { grid-template-columns: 1fr; } }
 
 /* ---------- offer ---------- */
 .offer {
@@ -533,8 +625,28 @@ p { margin: 0; }
     radial-gradient(70% 120% at 88% 20%, color-mix(in srgb, var(--mint) 60%, transparent), transparent 60%),
     linear-gradient(105deg, var(--mint-wash), color-mix(in srgb, var(--gold-wash) 70%, var(--surface)));
   border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-md);
   padding: clamp(34px, 5vw, 62px);
   display: grid; grid-template-columns: 1.25fr .75fr; gap: 34px; align-items: center;
+}
+/* proper ball bounce: hangs at the top, drops fast, squashes on landing */
+@keyframes offerBounce {
+  0%   { transform: translateY(0) scale(1, 1); }
+  10%  { transform: translateY(0) scaleX(1.03) scaleY(.94); }
+  32%  { transform: translateY(-46px) scale(1, 1); }
+  48%  { transform: translateY(-56px) scaleX(.98) scaleY(1.03); }
+  64%  { transform: translateY(-46px) scale(1, 1); }
+  88%  { transform: translateY(0) scaleX(1.05) scaleY(.92); }
+  94%  { transform: translateY(-8px) scale(1, 1); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .offer {
+    animation: offerBounce 1.6s cubic-bezier(.5,.05,.5,.95) infinite;
+    transform-origin: 50% 100%;
+    will-change: transform;
+  }
+  .offer:hover { animation-play-state: paused; }
 }
 .offer h2 { font-size: clamp(30px, 4vw, 50px); }
 .offer .price { font-family: var(--display); font-size: clamp(56px, 9vw, 116px); font-weight: 800; line-height: .9; letter-spacing: -0.05em; color: var(--aqua); font-variant-numeric: tabular-nums; }
@@ -711,6 +823,8 @@ p { margin: 0; }
 .skip-link { position: absolute; left: -9999px; top: 0; z-index: 300; background: var(--aqua); color: #032027; padding: 12px 18px; border-radius: 0 0 10px 0; font-weight: 600; }
 .skip-link:focus { left: 0; }
 </style>
+</head>
+<body>
 <script>document.documentElement.classList.add("js");</script>
 <!-- ================= icon set (single stroke family, 1.6px, lucide-style) ================= -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -865,99 +979,108 @@ p { margin: 0; }
     </div>
   </div>
 </section>
+<!-- ================= services (pinned stage) ================= -->
+<section class="section" id="services" style="padding-block:0">
+  <div class="svc-track" id="svcTrack">
+    <div class="svc-pin">
+      <div class="wrap svc-stage">
 
-<!-- ================= services ================= -->
-<section class="section" id="services">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div>
-        <span class="eyebrow">Complete care for every smile</span>
-        <h2 class="h-l">Everything your smile needs, <span class="gild">all in one place.</span></h2>
+        <div class="svc-left">
+          <div class="svc-head">
+            <span class="eyebrow">Complete care for every smile</span>
+            <h2>Everything your smile needs, <span class="gild">all in one place.</span></h2>
+          </div>
+
+          <div class="svc-list" id="svcList">
+            <div class="svc-inner" id="svcInner">
+              <button class="svc-item is-on" type="button" data-i="0">
+                <span class="title"><svg class="ico"><use href="#i-tooth"/></svg>General dentistry</span>
+                <p>Cleanings, fillings, root canals and gum therapy — the routine care that keeps everything else unnecessary.</p>
+                <span class="go"><svg><use href="#i-arrow"/></svg></span>
+              </button>
+              <button class="svc-item" type="button" data-i="1">
+                <span class="title"><svg class="ico"><use href="#i-sparkle"/></svg>Cosmetic dentistry</span>
+                <p>Porcelain veneers from 0.3 mm, bonding and contouring, previewed in 3D before we touch enamel.</p>
+                <span class="go"><svg><use href="#i-arrow"/></svg></span>
+              </button>
+              <button class="svc-item" type="button" data-i="2">
+                <span class="title"><svg class="ico"><use href="#i-implant"/></svg>Dental implants</span>
+                <p>Titanium implants placed with guided surgery, restored with a crown matched to your natural shade.</p>
+                <span class="go"><svg><use href="#i-arrow"/></svg></span>
+              </button>
+              <button class="svc-item" type="button" data-i="3">
+                <span class="title"><svg class="ico"><use href="#i-align"/></svg>Invisalign</span>
+                <p>Clear aligners planned tooth by tooth. Most adult cases finish in 6–14 months, with no metal at all.</p>
+                <span class="go"><svg><use href="#i-arrow"/></svg></span>
+              </button>
+              <button class="svc-item" type="button" data-i="4">
+                <span class="title"><svg class="ico"><use href="#i-white"/></svg>Teeth whitening</span>
+                <p>In-chair whitening lifts an average of six VITA shades in one 90-minute appointment, enamel-safe.</p>
+                <span class="go"><svg><use href="#i-arrow"/></svg></span>
+              </button>
+              <button class="svc-item" type="button" data-i="5">
+                <span class="title"><svg class="ico"><use href="#i-emergency"/></svg>Emergency dentistry</span>
+                <p>Chipped, knocked out, abscessed or simply unbearable — we keep same-day slots open every weekday.</p>
+                <span class="go"><svg><use href="#i-arrow"/></svg></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="svc-ask">
+            <a class="btn btn-ghost" href="#book">Not sure what you need? Ask us <svg><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+
+        <div class="svc-visual" id="svcVisual">
+          <div class="svc-slide is-on" data-i="0">
+            <img class="photo" src="assets/svc-general.jpg" alt="General dentistry" onerror="this.remove()">
+            <span class="tag">Preventive</span>
+            <span class="name">General dentistry</span>
+          </div>
+          <div class="svc-slide" data-i="1">
+            <img class="photo" src="assets/svc-cosmetic.jpg" alt="Cosmetic dentistry" onerror="this.remove()">
+            <span class="tag">Cosmetic</span>
+            <span class="name">Cosmetic dentistry</span>
+          </div>
+          <div class="svc-slide" data-i="2">
+            <img class="photo" src="assets/svc-implants.jpg" alt="Dental implants" onerror="this.remove()">
+            <span class="tag">Restorative</span>
+            <span class="name">Dental implants</span>
+          </div>
+          <div class="svc-slide" data-i="3">
+            <img class="photo" src="assets/svc-invisalign.jpg" alt="Invisalign" onerror="this.remove()">
+            <span class="tag">Orthodontic</span>
+            <span class="name">Invisalign</span>
+          </div>
+          <div class="svc-slide" data-i="4">
+            <img class="photo" src="assets/svc-whitening.jpg" alt="Teeth whitening" onerror="this.remove()">
+            <span class="tag">Cosmetic</span>
+            <span class="name">Teeth whitening</span>
+          </div>
+          <div class="svc-slide" data-i="5">
+            <img class="photo" src="assets/svc-emergency.jpg" alt="Emergency dentistry" onerror="this.remove()">
+            <span class="tag">Urgent</span>
+            <span class="name">Emergency dentistry</span>
+          </div>
+        </div>
+
       </div>
-      <a class="btn btn-ghost" href="#book">Not sure what you need? Ask us <svg><use href="#i-arrow"/></svg></a>
-    </div>
-
-    <div class="services-grid reveal d1">
-      <article class="svc">
-        <span class="svc-num">01 / PREVENTIVE</span>
-        <svg class="svc-icon"><use href="#i-tooth"/></svg>
-        <h3>General dentistry</h3>
-        <p>Cleanings, fillings, root canals and gum therapy — the routine care that keeps everything else unnecessary.</p>
-        <span class="meta">45 min · every 6 months</span>
-      </article>
-      <article class="svc">
-        <span class="svc-num">02 / COSMETIC</span>
-        <svg class="svc-icon"><use href="#i-sparkle"/></svg>
-        <h3>Cosmetic dentistry</h3>
-        <p>Porcelain veneers from 0.3 mm, bonding and contouring, previewed in 3D before we touch enamel.</p>
-        <span class="meta">2–3 visits · digital preview</span>
-      </article>
-      <article class="svc">
-        <span class="svc-num">03 / RESTORATIVE</span>
-        <svg class="svc-icon"><use href="#i-implant"/></svg>
-        <h3>Dental implants</h3>
-        <p>Titanium implants placed with guided surgery, restored with a crown matched to your natural shade.</p>
-        <span class="meta">Guided · 97% 10-year success</span>
-      </article>
-      <article class="svc">
-        <span class="svc-num">04 / ORTHODONTIC</span>
-        <svg class="svc-icon"><use href="#i-align"/></svg>
-        <h3>Invisalign</h3>
-        <p>Clear aligners planned tooth by tooth. Most adult cases finish in 6–14 months, with no metal at all.</p>
-        <span class="meta">Scan today · trays in 2 weeks</span>
-      </article>
-      <article class="svc">
-        <span class="svc-num">05 / COSMETIC</span>
-        <svg class="svc-icon"><use href="#i-white"/></svg>
-        <h3>Teeth whitening</h3>
-        <p>In-chair whitening lifts an average of six VITA shades in one 90-minute appointment, enamel-safe.</p>
-        <span class="meta">90 min · up to 6 shades</span>
-      </article>
-      <article class="svc">
-        <span class="svc-num">06 / URGENT</span>
-        <svg class="svc-icon"><use href="#i-emergency"/></svg>
-        <h3>Emergency dentistry</h3>
-        <p>Chipped, knocked out, abscessed or simply unbearable — we keep same-day slots open every weekday.</p>
-        <span class="meta">Same day · call (212) 555-7820</span>
-      </article>
     </div>
   </div>
 </section>
 
-<!-- ================= cosmetic split ================= -->
+<!-- ================= featured service ================= -->
 <section class="section" style="background:var(--bg-alt)">
-  <div class="wrap split">
-    <div class="split-art reveal">
-        <img class="photo" src="assets/cosmetic-consultation.jpg" alt="A dentist reviewing a digital smile design with a patient" onerror="this.remove()">
-      <svg viewBox="0 0 420 386" role="img" aria-label="Illustration of a digital smile design plan on a chairside monitor">
-        <defs>
-          <linearGradient id="scr" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0B3141"/><stop offset="100%" stop-color="#06222E"/></linearGradient>
-        </defs>
-        <rect width="420" height="386" fill="url(#scr)"/>
-        <g stroke="#7EE0D2" stroke-opacity=".12"><path d="M0 48h420M0 96h420M0 144h420M0 192h420M0 240h420M0 288h420M0 336h420"/></g>
-        <rect x="46" y="52" width="328" height="212" rx="10" fill="#04161E" stroke="#17C3B2" stroke-opacity=".45"/>
-        <g transform="translate(210 168)">
-          <g fill="#EAF7F4">
-            <g transform="rotate(-40) translate(0 -78)"><rect x="-13" y="-15" width="26" height="34" rx="8"/></g>
-            <g transform="rotate(-22) translate(0 -84)"><rect x="-15" y="-17" width="30" height="38" rx="9"/></g>
-            <g transform="rotate(-7) translate(0 -86)"><rect x="-17" y="-19" width="34" height="42" rx="10"/></g>
-            <g transform="rotate(7) translate(0 -86)"><rect x="-17" y="-19" width="34" height="42" rx="10"/></g>
-            <g transform="rotate(22) translate(0 -84)"><rect x="-15" y="-17" width="30" height="38" rx="9"/></g>
-            <g transform="rotate(40) translate(0 -78)"><rect x="-13" y="-15" width="26" height="34" rx="8"/></g>
-          </g>
-          <g fill="none" stroke="#17C3B2" stroke-width="1.2" stroke-dasharray="4 6"><path d="M-120-96C-60-140 60-140 120-96"/></g>
-        </g>
-        <g font-family="Outfit, sans-serif" font-size="9" fill="#7EE0D2" letter-spacing="1.4">
-          <text x="60" y="76" fill-opacity=".8">PLAN 04 · VENEERS 6–11</text>
-          <text x="290" y="76" fill-opacity=".55">PREVIEW</text>
-          <text x="60" y="250" fill-opacity=".55">MIDLINE +0.4 mm</text>
-        </g>
-        <rect x="46" y="284" width="328" height="10" rx="5" fill="#0F2E39"/>
-        <rect x="46" y="284" width="212" height="10" rx="5" fill="#17C3B2" fill-opacity=".8"/>
-        <g font-family="Outfit, sans-serif" font-size="9" fill="#A9C3C4" letter-spacing="1.4"><text x="46" y="314">TREATMENT PROGRESS · STEP 3 OF 5</text></g>
-      </svg>
+  <div class="wrap feat">
+    <div class="feat-art reveal">
+      <img class="photo" src="assets/cosmetic-consultation.jpg" alt="A dentist reviewing a digital smile design with a patient" onerror="this.remove()">
+      <span class="tag">Featured treatment</span>
+      <span class="cap">
+        <b>Digital smile design</b>
+        <span>Veneers 6–11 · previewed before any enamel is touched</span>
+      </span>
     </div>
-    <div class="split-copy">
+    <div class="feat-copy">
       <span class="eyebrow reveal">Cosmetic dentistry</span>
       <h2 class="h-l reveal d1">Smiles you'll <span class="gild">love to share.</span></h2>
       <p class="lede reveal d1">Whether you want to brighten, straighten or completely transform your smile, we design it digitally first — so you approve the result before a single tooth is prepared.</p>
@@ -967,43 +1090,58 @@ p { margin: 0; }
         <li><svg><use href="#i-check"/></svg><span><b>Advanced digital technology</b> — intraoral scanning, no impression trays.</span></li>
         <li><svg><use href="#i-check"/></svg><span><b>Comfortable experience</b> — sedation options and a fixed price before you start.</span></li>
       </ul>
-      <div class="hero-cta reveal d3"><a class="btn btn-primary" href="#book">Explore cosmetic dentistry <svg><use href="#i-arrow"/></svg></a></div>
+      <div class="cta reveal d3"><a class="btn btn-primary" href="#book">Explore cosmetic dentistry <svg><use href="#i-arrow"/></svg></a></div>
     </div>
   </div>
 </section>
 
 <!-- ================= why us ================= -->
-<section class="section">
-  <div class="wrap">
-    <div class="sec-head center reveal" id="about">
-      <div>
-        <span class="eyebrow">Why patients choose us</span>
-        <h2 class="h-l">Dentistry designed <span class="gild">around you.</span></h2>
+<section class="section" id="about" style="padding-block:0">
+  <div class="why-track" id="whyTrack">
+   <div class="why-pin">
+    <div class="wrap why">
+    <div class="why-intro reveal">
+      <span class="eyebrow">Why patients choose us</span>
+      <h2 class="h-l">Dentistry designed <span class="gild">around you.</span></h2>
+      <p class="lede">Most people arrive having been rushed, upsold or left in the dark somewhere else. Four things we do differently, and hold ourselves to.</p>
+      <div class="why-stats">
+        <div><b data-count="10" data-suffix="+">10+</b><span>Years of practice</span></div>
+        <div><b data-count="25" data-suffix="K+">25K+</b><span>Happy patients</span></div>
+        <div><b data-count="50" data-suffix="+">50+</b><span>Dental treatments</span></div>
+        <div><b data-count="4.9" data-suffix="★">4.9★</b><span>Patient rating</span></div>
       </div>
     </div>
-    <div class="values">
-      <div class="value reveal"><span class="value-ring"><svg><use href="#i-users"/></svg></span><h3>Experienced team</h3><p>Three specialists, 36 years of combined chairside practice.</p></div>
-      <div class="value reveal d1"><span class="value-ring"><svg><use href="#i-monitor"/></svg></span><h3>Modern technology</h3><p>Digital diagnostics that show you exactly what we see.</p></div>
-      <div class="value reveal d2"><span class="value-ring"><svg><use href="#i-cup"/></svg></span><h3>Comfort first</h3><p>Quiet rooms, warm blankets, headphones, no rushing.</p></div>
-      <div class="value reveal d3"><span class="value-ring"><svg><use href="#i-heart"/></svg></span><h3>Personalised care</h3><p>Written plans with fixed pricing — no surprise invoices.</p></div>
+    <div class="why-list">
+        <div class="why-row is-on">
+          <span class="chip"><svg><use href="#i-users"/></svg></span>
+          <h3>The same team, every visit</h3>
+          <span class="proof">36 yrs combined</span>
+          <p>Three specialists who know your history, so you never start the conversation over.</p>
+        </div>
+        <div class="why-row">
+          <span class="chip"><svg><use href="#i-monitor"/></svg></span>
+          <h3>You see what we see</h3>
+          <span class="proof">Chairside display</span>
+          <p>Scans and X-rays go straight to the screen beside the chair, explained before anything is decided.</p>
+        </div>
+        <div class="why-row">
+          <span class="chip"><svg><use href="#i-cup"/></svg></span>
+          <h3>Built for nervous patients</h3>
+          <span class="proof">Sedation available</span>
+          <p>Quiet rooms, longer appointments on request, headphones, and a warning before every step.</p>
+        </div>
+        <div class="why-row">
+          <span class="chip"><svg><use href="#i-heart"/></svg></span>
+          <h3>The price you're quoted</h3>
+          <span class="proof">Fixed pricing</span>
+          <p>A written plan with fixed pricing before treatment starts. No line items appear later.</p>
+        </div>
     </div>
+    </div>
+   </div>
   </div>
 </section>
 
-<!-- ================= stats ================= -->
-<section class="section" style="padding-block:0">
-  <div class="wrap">
-    <div class="stats-band reveal">
-      <div class="grain" aria-hidden="true"></div>
-      <div class="stats-inner">
-        <div class="stat"><b data-count="10" data-suffix="+">10+</b><span>Years of practice</span></div>
-        <div class="stat"><b data-count="25" data-suffix="K+">25K+</b><span>Happy patients</span></div>
-        <div class="stat"><b data-count="50" data-suffix="+">50+</b><span>Dental treatments</span></div>
-        <div class="stat"><b data-count="4.9" data-suffix="★">4.9★</b><span>Patient rating</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 <!-- ================= team ================= -->
 <section class="section" id="team">
   <div class="wrap">
@@ -1089,7 +1227,6 @@ p { margin: 0; }
     </div>
   </div>
 </section>
-
 <!-- ================= before / after ================= -->
 <section class="section" id="gallery" style="background:var(--bg-alt)">
   <div class="wrap">
@@ -1142,7 +1279,6 @@ p { margin: 0; }
           <span class="lbl b">Before</span><span class="lbl a">After</span>
           <div class="handle"><span class="knob"><svg><use href="#i-drag"/></svg></span></div>
         </div>
-        <figcaption class="compare-cap"><h3>Porcelain veneers</h3><span>Case 04 · 3 visits</span></figcaption>
       </figure>
 
       <figure style="margin:0" class="reveal d1">
@@ -1178,78 +1314,47 @@ p { margin: 0; }
           <span class="lbl b">Before</span><span class="lbl a">After</span>
           <div class="handle"><span class="knob"><svg><use href="#i-drag"/></svg></span></div>
         </div>
-        <figcaption class="compare-cap"><h3>In-chair whitening</h3><span>Case 11 · 90 minutes</span></figcaption>
+      </figure>
+
+      <figure style="margin:0" class="reveal d2">
+        <div class="compare" data-compare tabindex="0" role="slider" aria-label="Clear aligners before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+          <div class="layer before">
+            <img class="photo" src="assets/aligners-before.jpg" alt="Before aligners: crowded front teeth" onerror="this.remove()">
+            <svg viewBox="0 0 560 385" role="img" aria-label="Before: crowded, overlapping front teeth">
+              <rect width="560" height="385" fill="#EFE7DC"/>
+              <path d="M130 160c0-42 66-64 150-64s150 22 150 64c0 70-68 124-150 124S130 230 130 160Z" fill="#B9756B" opacity=".2"/>
+              <g fill="#E3CFA4">
+                <g transform="rotate(-9 258 183)"><rect x="236" y="150" width="44" height="66" rx="15"/></g>
+                <g transform="rotate(7 306 183)"><rect x="284" y="146" width="44" height="66" rx="15"/></g>
+                <g transform="rotate(-14 216 184)"><rect x="200" y="156" width="32" height="56" rx="13"/></g>
+                <g transform="rotate(12 348 184)"><rect x="332" y="158" width="32" height="56" rx="13"/></g>
+                <rect x="172" y="163" width="26" height="46" rx="11"/><rect x="366" y="165" width="26" height="46" rx="11"/>
+              </g>
+              <g font-family="Outfit, sans-serif" font-size="11" fill="#8B6C4A" letter-spacing="1.5"><text x="34" y="352">CROWDING · 3.1 mm</text></g>
+            </svg>
+          </div>
+          <div class="layer after">
+            <img class="photo" src="assets/aligners-after.jpg" alt="After aligners: evenly aligned teeth" onerror="this.remove()">
+            <svg viewBox="0 0 560 385" role="img" aria-label="After: evenly aligned arch">
+              <rect width="560" height="385" fill="#E7F4F1"/>
+              <path d="M130 160c0-42 66-64 150-64s150 22 150 64c0 70-68 124-150 124S130 230 130 160Z" fill="#C0555A" opacity=".2"/>
+              <g fill="#FDFEFE">
+                <rect x="236" y="150" width="44" height="66" rx="15"/><rect x="284" y="150" width="44" height="66" rx="15"/>
+                <rect x="200" y="156" width="32" height="56" rx="13"/><rect x="332" y="156" width="32" height="56" rx="13"/>
+                <rect x="170" y="163" width="26" height="46" rx="11"/><rect x="368" y="163" width="26" height="46" rx="11"/>
+              </g>
+              <path d="M164 142c40-26 192-26 232 0" fill="none" stroke="#17C3B2" stroke-opacity=".5" stroke-width="2" stroke-dasharray="4 7"/>
+              <g font-family="Outfit, sans-serif" font-size="11" fill="#0E9E92" letter-spacing="1.5"><text x="34" y="352">18 TRAYS · 11 MONTHS</text></g>
+            </svg>
+          </div>
+          <span class="lbl b">Before</span><span class="lbl a">After</span>
+          <div class="handle"><span class="knob"><svg><use href="#i-drag"/></svg></span></div>
+        </div>
       </figure>
     </div>
 
-    <!-- VITA shade guide -->
-    <div class="shade-guide reveal">
-      <div>
-        <span class="eyebrow" style="margin-bottom:10px">Shade guide</span>
-        <h3>Pick the shade you want.</h3>
-        <p>We match against the VITA classical guide at every visit, so “whiter” is a measurement, not a guess.</p>
-      </div>
-      <div>
-        <div class="shades" role="group" aria-label="VITA shade samples">
-          <button type="button" data-shade="A3.5" data-label="Your likely starting shade" aria-pressed="false" style="background:#E0CDA6"><span>A3.5</span></button>
-          <button type="button" data-shade="A3" data-label="After a professional clean" aria-pressed="false" style="background:#E7D8B6"><span>A3</span></button>
-          <button type="button" data-shade="A2" data-label="Typical take-home result" aria-pressed="false" style="background:#EFE3C8"><span>A2</span></button>
-          <button type="button" data-shade="A1" data-label="Typical in-chair result" aria-pressed="true" style="background:#F5EEDD"><span>A1</span></button>
-          <button type="button" data-shade="B1" data-label="Brightest natural shade" aria-pressed="false" style="background:#FBF7EE"><span>B1</span></button>
-          <button type="button" data-shade="0M1" data-label="Veneer-only bleach shade" aria-pressed="false" style="background:#FFFFFF"><span>0M1</span></button>
-        </div>
-        <p class="shade-out" id="shadeOut"><b>A1</b> Typical in-chair result</p>
-      </div>
-    </div>
   </div>
 </section>
-<!-- ================= technology ================= -->
-<section class="section tech">
-  <div class="grain" aria-hidden="true"></div>
-  <div class="wrap tech-grid">
-    <div>
-      <span class="eyebrow reveal">Modern dentistry</span>
-      <h2 class="h-l reveal d1" style="margin-top:14px">Advanced technology. <br>Better experiences.</h2>
-      <p class="lede reveal d1" style="margin-top:18px">We've invested in equipment that makes visits faster, safer and considerably more comfortable — and that lets you see your own scan on the screen beside the chair.</p>
-      <div class="tech-list">
-        <div class="tech-item reveal d2"><span class="chip"><svg><use href="#i-xray"/></svg></span><div><h4>Digital X-rays</h4><p>Up to 90% less radiation than film, with images on screen in seconds.</p></div></div>
-        <div class="tech-item reveal d2"><span class="chip"><svg><use href="#i-scan"/></svg></span><div><h4>3D intraoral scanning</h4><p>No trays, no impression putty — a 90-second wand scan instead.</p></div></div>
-        <div class="tech-item reveal d3"><span class="chip"><svg><use href="#i-monitor"/></svg></span><div><h4>Digital smile design</h4><p>See your projected result before we start, and change it if you want.</p></div></div>
-        <div class="tech-item reveal d3"><span class="chip"><svg><use href="#i-laser"/></svg></span><div><h4>Soft-tissue laser</h4><p>Gum contouring with minimal bleeding and a far shorter recovery.</p></div></div>
-      </div>
-    </div>
-    <div class="tech-art reveal d1">
-        <img class="photo" src="assets/technology.jpg" alt="Chairside intraoral scanner in use" onerror="this.remove()">
-      <svg viewBox="0 0 400 416" role="img" aria-label="Illustration of an intraoral scan rendering on a chairside display">
-        <rect width="400" height="416" fill="#04161E"/>
-        <g stroke="#7EE0D2" stroke-opacity=".1"><path d="M0 52h400M0 104h400M0 156h400M0 208h400M0 260h400M0 312h400M0 364h400"/><path d="M50 0v416M100 0v416M150 0v416M200 0v416M250 0v416M300 0v416M350 0v416"/></g>
-        <g transform="translate(200 200)">
-          <ellipse rx="132" ry="118" fill="#0B3141" stroke="#17C3B2" stroke-opacity=".3"/>
-          <g fill="#DCF2EE" fill-opacity=".9">
-            <g transform="rotate(-62) translate(0 -96)"><rect x="-11" y="-13" width="22" height="30" rx="8"/></g>
-            <g transform="rotate(-46) translate(0 -100)"><rect x="-12" y="-14" width="24" height="32" rx="8"/></g>
-            <g transform="rotate(-30) translate(0 -104)"><rect x="-13" y="-15" width="26" height="34" rx="9"/></g>
-            <g transform="rotate(-14) translate(0 -106)"><rect x="-14" y="-16" width="28" height="36" rx="9"/></g>
-            <g transform="rotate(0) translate(0 -107)"><rect x="-14" y="-16" width="28" height="36" rx="9"/></g>
-            <g transform="rotate(14) translate(0 -106)"><rect x="-14" y="-16" width="28" height="36" rx="9"/></g>
-            <g transform="rotate(30) translate(0 -104)"><rect x="-13" y="-15" width="26" height="34" rx="9"/></g>
-            <g transform="rotate(46) translate(0 -100)"><rect x="-12" y="-14" width="24" height="32" rx="8"/></g>
-            <g transform="rotate(62) translate(0 -96)"><rect x="-11" y="-13" width="22" height="30" rx="8"/></g>
-          </g>
-          <circle r="150" fill="none" stroke="#17C3B2" stroke-opacity=".35" stroke-dasharray="2 10">
-            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="26s" repeatCount="indefinite"/>
-          </circle>
-        </g>
-        <g font-family="Outfit, sans-serif" font-size="9" fill="#7EE0D2" letter-spacing="1.5">
-          <text x="24" y="34" fill-opacity=".85">INTRAORAL SCAN · UPPER ARCH</text>
-          <text x="24" y="392" fill-opacity=".55">RESOLUTION 0.02 mm</text>
-          <text x="292" y="392" fill-opacity=".55">92 s</text>
-        </g>
-      </svg>
-    </div>
-  </div>
-</section>
-
 <!-- ================= offer ================= -->
 <section class="section" id="patients">
   <div class="wrap">
@@ -1333,7 +1438,6 @@ p { margin: 0; }
     </div>
   </div>
 </section>
-
 <!-- ================= testimonials ================= -->
 <section class="section" style="background:var(--bg-alt)">
   <div class="wrap">
@@ -1650,6 +1754,104 @@ p { margin: 0; }
     counters.forEach(function (el) { cio.observe(el); });
   }
 
+  /* ---- pinned services stage ---- */
+  (function () {
+    var track = document.getElementById("svcTrack");
+    if (!track) return;
+    var inner = document.getElementById("svcInner");
+    var items = Array.prototype.slice.call(document.querySelectorAll(".svc-item"));
+    var slides = Array.prototype.slice.call(document.querySelectorAll(".svc-slide"));
+    var list = document.getElementById("svcList");
+    var visual = document.getElementById("svcVisual");
+    var n = items.length;
+    var current = 0;
+
+    /* index n is the outro beat: everything swipes out and the button rises */
+    function setActive(i) {
+      if (i === current) return;
+      current = i;
+      var out = (i === n);
+      items.forEach(function (el, k) { el.classList.toggle("is-on", !out && k === i); });
+      slides.forEach(function (el, k) { el.classList.toggle("is-on", !out && k === i); });
+      list.classList.toggle("is-out", out);
+      visual.classList.toggle("is-out", out);
+      inner.style.transform = "translateY(-" + items[out ? n - 1 : i].offsetTop + "px)";
+    }
+
+    /* services hold a beat each, then one shorter beat for the outro */
+    var units = n + 0.7;
+
+    function sizeTrack() {
+      track.style.height = (units * 72) + "vh";
+      inner.style.transform = "translateY(-" + items[Math.min(current, n - 1)].offsetTop + "px)";
+    }
+
+    var tick = false;
+    function update() {
+      if (tick) return;
+      tick = true;
+      requestAnimationFrame(function () {
+        tick = false;
+        var rect = track.getBoundingClientRect();
+        var span = rect.height - window.innerHeight;
+        if (span <= 0) return;
+        var p = Math.min(1, Math.max(0, -rect.top / span));
+        setActive(Math.min(n, Math.floor(p * units)));
+      });
+    }
+
+    items.forEach(function (item) {
+      item.addEventListener("click", function () {
+        var i = parseInt(item.dataset.i, 10);
+        var rect = track.getBoundingClientRect();
+        var span = rect.height - window.innerHeight;
+        var top = window.scrollY + rect.top;
+        window.scrollTo({ top: top + span * ((i + 0.25) / units), behavior: reduce ? "auto" : "smooth" });
+      });
+    });
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", function () { sizeTrack(); update(); });
+    window.addEventListener("load", sizeTrack);
+    sizeTrack();
+    update();
+  })();
+
+  /* ---- why-us: pinned, one feature at a time ---- */
+  (function () {
+    var track = document.getElementById("whyTrack");
+    if (!track) return;
+    var rows = Array.prototype.slice.call(document.querySelectorAll(".why-row"));
+    var n = rows.length;
+    var units = n + 0.3;
+    var current = 0;
+
+    function setActive(i) {
+      if (i === current) return;
+      current = i;
+      rows.forEach(function (el, k) { el.classList.toggle("is-on", k <= i); });
+    }
+    function sizeTrack() { track.style.height = (units * 58) + "vh"; }
+
+    var tick = false;
+    function update() {
+      if (tick) return;
+      tick = true;
+      requestAnimationFrame(function () {
+        tick = false;
+        var rect = track.getBoundingClientRect();
+        var span = rect.height - window.innerHeight;
+        if (span <= 0) return;
+        var p = Math.min(1, Math.max(0, -rect.top / span));
+        setActive(Math.min(n - 1, Math.floor(p * units)));
+      });
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", function () { sizeTrack(); update(); });
+    sizeTrack();
+    update();
+  })();
+
   /* ---- before / after comparison sliders ---- */
   document.querySelectorAll("[data-compare]").forEach(function (box) {
     var dragging = false;
@@ -1673,16 +1875,6 @@ p { margin: 0; }
       if (e.key === "ArrowRight") { setPos(now + 4); e.preventDefault(); }
     });
     setPos(50);
-  });
-
-  /* ---- VITA shade guide ---- */
-  var shadeOut = document.getElementById("shadeOut");
-  document.querySelectorAll(".shades button").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      document.querySelectorAll(".shades button").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
-      btn.setAttribute("aria-pressed", "true");
-      shadeOut.innerHTML = "<b>" + btn.dataset.shade + "</b> " + btn.dataset.label;
-    });
   });
 
   /* ---- FAQ accordion ---- */
@@ -1746,3 +1938,5 @@ p { margin: 0; }
   dateInput.min = today.toISOString().slice(0, 10);
 })();
 </script>
+</body>
+</html>

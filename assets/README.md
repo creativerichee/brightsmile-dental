@@ -5,24 +5,55 @@ with the matching name and it replaces the illustration automatically — no cod
 changes. Delete a file and the illustration comes back. A missing or broken
 image removes itself, so the page never shows a broken-image icon.
 
+## Hero and features
+
 | Filename | Where it appears | Aspect ratio | Subject |
 |---|---|---|---|
-| `hero-smile.jpg` | Hero, right side | 4 : 4.4 (portrait) | A confident patient or dentist, mid-smile |
-| `cosmetic-consultation.jpg` | "Smiles you'll love to share" | 5 : 4.6 | Dentist and patient reviewing a treatment plan |
-| `technology.jpg` | "Advanced technology" | 5 : 5.2 | Intraoral scanner or chairside monitor in use |
-| `dr-emily-carter.jpg` | Team | 1 : 1.02 (square-ish) | Head-and-shoulders, plain background |
-| `dr-michael-reed.jpg` | Team | 1 : 1.02 | Head-and-shoulders, plain background |
-| `dr-sofia-alvarez.jpg` | Team | 1 : 1.02 | Head-and-shoulders, plain background |
-| `veneers-before.jpg` | Transformations slider | 16 : 11 | Close-up smile, before |
-| `veneers-after.jpg` | Transformations slider | 16 : 11 | Same smile, after — same angle, same lighting |
-| `whitening-before.jpg` | Transformations slider | 16 : 11 | Close-up smile, before |
-| `whitening-after.jpg` | Transformations slider | 16 : 11 | Same smile, after |
-| `gallery-treatment-room.jpg` | Gallery | 2 : 3 (tall) | Treatment room |
-| `gallery-smile.jpg` | Gallery | 4 : 1 (wide) | Smiling patient |
-| `gallery-sterilisation.jpg` | Gallery | 2 : 1 | Sterilisation area |
-| `gallery-reception.jpg` | Gallery | 2 : 1 | Reception / waiting area |
-| `gallery-scanner.jpg` | Gallery | 2 : 1 | Scanner or equipment detail |
-| `gallery-aligners.jpg` | Gallery | 2 : 1 | Aligner trays or lab work |
+| `hero-smile.jpg` | Hero, right side | 4 : 4.4 (portrait) | The lead dentist, or a confident patient |
+| `cosmetic-consultation.jpg` | "Smiles you'll love to share" | 5 : 4.4 | Dentist and patient reviewing a treatment plan |
+
+## Services stage
+
+These six fill the panel that changes as you scroll the services section.
+
+| Filename | Service | Aspect ratio |
+|---|---|---|
+| `svc-general.jpg` | General dentistry | 4 : 3 |
+| `svc-cosmetic.jpg` | Cosmetic dentistry | 4 : 3 |
+| `svc-implants.jpg` | Dental implants | 4 : 3 |
+| `svc-invisalign.jpg` | Invisalign | 4 : 3 |
+| `svc-whitening.jpg` | Teeth whitening | 4 : 3 |
+| `svc-emergency.jpg` | Emergency dentistry | 4 : 3 |
+
+## Team
+
+| Filename | Aspect ratio | Subject |
+|---|---|---|
+| `dr-emily-carter.jpg` | 1 : 1.02 | Head-and-shoulders, plain background |
+| `dr-michael-reed.jpg` | 1 : 1.02 | Head-and-shoulders, plain background |
+| `dr-sofia-alvarez.jpg` | 1 : 1.02 | Head-and-shoulders, plain background |
+
+## Before / after
+
+Three draggable comparisons. Each pair must be shot at the same angle,
+distance and lighting — the slider wipes between them, so any mismatch shows.
+
+| Filename | Case | Aspect ratio |
+|---|---|---|
+| `veneers-before.jpg` / `veneers-after.jpg` | Porcelain veneers | 16 : 11 |
+| `whitening-before.jpg` / `whitening-after.jpg` | Teeth whitening | 16 : 11 |
+| `aligners-before.jpg` / `aligners-after.jpg` | Clear aligners | 16 : 11 |
+
+## Gallery
+
+| Filename | Aspect ratio | Subject |
+|---|---|---|
+| `gallery-treatment-room.jpg` | 2 : 3 (tall) | Treatment room |
+| `gallery-smile.jpg` | 4 : 1 (wide) | Smiling patient |
+| `gallery-sterilisation.jpg` | 2 : 1 | Sterilisation area |
+| `gallery-reception.jpg` | 2 : 1 | Reception / waiting area |
+| `gallery-scanner.jpg` | 2 : 1 | Scanner or equipment detail |
+| `gallery-aligners.jpg` | 2 : 1 | Aligner trays or lab work |
 
 ## Notes
 
@@ -30,7 +61,5 @@ image removes itself, so the page never shows a broken-image icon.
   the `src` on the matching `<img class="photo">` in `index.html`.
 - **Size** — export around 1600px on the long edge and compress to roughly
   200–400 KB. Larger files slow the page down without looking better.
-- **Before/after pairs** — shoot the same angle, distance and lighting for both.
-  The slider wipes between them, so any mismatch is very visible.
 - **Consent** — get written patient consent before publishing clinical photos,
   and check your local dental advertising rules on before/after imagery.
