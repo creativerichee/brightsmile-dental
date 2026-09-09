@@ -169,6 +169,7 @@ p { margin: 0; }
 .h-s  { font-size: clamp(19px, 1.5vw, 22px); letter-spacing: -0.015em; }
 
 .gild { color: var(--aqua); }
+.hero .eyebrow::before { content: none; }
 
 /* ---------- buttons ---------- */
 .btn {
@@ -327,13 +328,6 @@ p { margin: 0; }
   font-style: normal; color: var(--aqua);
   position: relative;
 }
-.hero h1 em::after {
-  content: ""; position: absolute; left: 2%; right: 2%; bottom: .06em; height: .075em; border-radius: 999px;
-  background: linear-gradient(90deg, transparent, var(--mint), var(--aqua-bright), transparent);
-  transform: scaleX(0); transform-origin: left;
-  animation: sweep 1.1s .5s cubic-bezier(.2,.8,.3,1) forwards;
-}
-@keyframes sweep { to { transform: scaleX(1); } }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 
 /* hero art: enamel arc portrait plate */
