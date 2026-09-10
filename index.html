@@ -131,6 +131,7 @@ body {
   overflow-x: hidden;
 }
 img, svg { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; cursor: pointer; }
 :focus-visible { outline: 2.5px solid var(--aqua); outline-offset: 3px; border-radius: 4px; }
@@ -685,6 +686,28 @@ p { margin: 0; }
 :root[data-theme="dark"] .google-rating {
   background: #FFFFFF; border-radius: 14px; padding: 14px 18px;
 }
+.live-rating { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.google-mark { width: clamp(150px, 18vw, 200px); height: auto; }
+.live-score { display: flex; align-items: center; gap: 12px; }
+.live-score b {
+  font-family: var(--display); font-size: clamp(30px, 4vw, 42px); font-weight: 700;
+  letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.stars-lg { display: inline-flex; gap: 3px; color: var(--gold); }
+.stars-lg svg { width: 20px; height: 20px; }
+.stars-lg .half { position: relative; display: inline-block; width: 20px; height: 20px; }
+.stars-lg .half svg { position: absolute; inset: 0; }
+.stars-lg .half svg:first-child { color: var(--line); }
+.stars-lg .half svg:last-child { clip-path: inset(0 var(--rest, 50%) 0 0); }
+.live-note {
+  font-family: var(--label); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-3); border-bottom: 1px solid transparent;
+}
+.live-note:hover { color: var(--aqua); border-bottom-color: var(--aqua); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .google-mark { background: #FFF; border-radius: 12px; padding: 10px 14px; }
+}
+:root[data-theme="dark"] .google-mark { background: #FFF; border-radius: 12px; padding: 10px 14px; }
 .rating-note { font-family: var(--label); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
 .marquee { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
 .marquee-track { display: flex; gap: 18px; width: max-content; animation: slide 46s linear infinite; }
@@ -1455,10 +1478,21 @@ p { margin: 0; }
         <h2 class="h-l" style="margin-top:12px">Thousands of smiles. <br><span class="gild">Countless happy patients.</span></h2>
       </div>
     </div>
-    <div class="rating-head reveal">
+    <div class="rating-head reveal" id="googleReviews">
       <img class="google-rating" src="assets/google-rating.png"
            alt="Rated 4.9 out of 5 on Google Reviews" width="360" height="143" loading="lazy">
       <p class="rating-note">Based on 2,500+ Google reviews</p>
+
+      <!-- Filled in from the Google Places API when a key and Place ID are set
+           in GOOGLE_REVIEWS below. Until then the static badge above shows. -->
+      <div class="live-rating" id="liveRating" hidden>
+        <img class="google-mark" src="assets/google-wordmark.png" alt="Google" width="280" height="67">
+        <div class="live-score">
+          <b id="liveValue">—</b>
+          <span class="stars-lg" id="liveStars" aria-hidden="true"></span>
+        </div>
+        <a class="live-note" id="liveCount" href="#top" target="_blank" rel="noopener">Reviews on Google</a>
+      </div>
     </div>
   </div>
   <div class="marquee reveal d1">
@@ -1903,6 +1937,67 @@ p { margin: 0; }
       track.appendChild(clone);
     });
   }
+
+  /* ---- live Google rating (Places API) ----------------------------------
+     Set both values to switch the static badge for the clinic's real rating.
+     Google publishes no drop-in reviews widget; this is the supported route.
+
+       apiKey  - Maps JavaScript API key, RESTRICTED to this site's domain.
+                 A browser key is public by design; the referrer restriction
+                 is what stops other sites spending your quota.
+       placeId - from https://developers.google.com/maps/documentation/places/web-service/place-id
+
+     Enable "Places API (New)" on the same Google Cloud project as the key.
+     Leave either blank and the page keeps the static badge.  ------------- */
+  var GOOGLE_REVIEWS = { apiKey: "", placeId: "" };
+
+  (function () {
+    var box = document.getElementById("googleReviews");
+    if (!box || !GOOGLE_REVIEWS.apiKey || !GOOGLE_REVIEWS.placeId) return;
+
+    window.initGoogleReviews = async function () {
+      try {
+        var lib = await google.maps.importLibrary("places");
+        var place = new lib.Place({ id: GOOGLE_REVIEWS.placeId });
+        await place.fetchFields({ fields: ["rating", "userRatingCount", "googleMapsURI"] });
+        if (!place.rating) return;
+        render(place.rating, place.userRatingCount, place.googleMapsURI);
+      } catch (err) {
+        /* quota, bad key, blocked network — the static badge stays put */
+        console.warn("Google reviews unavailable:", err && err.message);
+      }
+    };
+
+    function star(fill) {
+      if (fill >= 1) return '<svg><use href="#i-star"/></svg>';
+      if (fill <= 0) return '<svg style="color:var(--line)"><use href="#i-star"/></svg>';
+      return '<span class="half" style="--rest:' + Math.round((1 - fill) * 100) + '%">' +
+             '<svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>';
+    }
+
+    function render(rating, count, uri) {
+      var stars = "";
+      for (var i = 0; i < 5; i++) stars += star(Math.min(1, Math.max(0, rating - i)));
+      document.getElementById("liveValue").textContent = rating.toFixed(1);
+      document.getElementById("liveStars").innerHTML = stars;
+      var link = document.getElementById("liveCount");
+      link.textContent = count ? "Based on " + count.toLocaleString() + " Google reviews" : "Reviews on Google";
+      if (uri) link.href = uri;
+      document.getElementById("liveStars").parentElement
+        .setAttribute("aria-label", rating.toFixed(1) + " out of 5 stars");
+      /* swap only once the real numbers are in hand, so the section is never empty */
+      box.querySelector(".google-rating").hidden = true;
+      box.querySelector(".rating-note").hidden = true;
+      document.getElementById("liveRating").hidden = false;
+    }
+
+    var tag = document.createElement("script");
+    tag.src = "https://maps.googleapis.com/maps/api/js?key=" + encodeURIComponent(GOOGLE_REVIEWS.apiKey) +
+              "&libraries=places&v=weekly&loading=async&callback=initGoogleReviews";
+    tag.async = true;
+    tag.onerror = function () { console.warn("Google Maps script blocked or failed to load"); };
+    document.head.appendChild(tag);
+  })();
 
   /* ---- booking form ---- */
   var form = document.getElementById("bookForm");

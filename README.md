@@ -39,3 +39,31 @@ SVG icon sprite, the page markup, then the scripts.
 Clinic name, staff, reviews and case results are placeholders for demonstration.
 Replace them with real details before publishing, and keep before/after imagery
 compliant with your local dental advertising rules.
+
+## Live Google rating
+
+The testimonials section ships with a static Google badge image. To show the
+clinic's real rating instead, open `index.html`, find `GOOGLE_REVIEWS` near the
+bottom, and fill in both values:
+
+```js
+var GOOGLE_REVIEWS = { apiKey: "", placeId: "" };
+```
+
+1. **Google Cloud project** — enable **Places API (New)** and **Maps JavaScript
+   API**, then create an API key.
+2. **Restrict the key** to HTTP referrers for your domain (e.g.
+   `brightsmile.dental/*`). A browser key is visible in page source by design;
+   the referrer restriction is what stops other sites spending your quota.
+   Never reuse a key that has billing-heavy APIs enabled.
+3. **Place ID** — look the practice up with Google's Place ID finder:
+   https://developers.google.com/maps/documentation/places/web-service/place-id
+
+With both set, the page fetches the live rating and review count and swaps the
+static badge for them. If the key is wrong, quota is exhausted, or the script is
+blocked, it logs a warning and keeps the static badge — the section never ends
+up empty.
+
+Note that Google publishes no drop-in "reviews widget"; the Places API is the
+supported route. Billing applies per request, and Google's terms require the
+data be shown as coming from Google.
