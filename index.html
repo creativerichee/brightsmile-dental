@@ -481,15 +481,19 @@ p { margin: 0; }
 
 /* ---------- featured service ---------- */
 .feat { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+.feat-copy { align-self: center; }
 .feat-art {
   position: relative; border-radius: var(--r-xl); overflow: hidden;
-  box-shadow: var(--shadow-lg); aspect-ratio: 5/4.4;
+  box-shadow: var(--shadow-lg); aspect-ratio: 858 / 1072;
   background: linear-gradient(165deg, var(--deep-2), var(--deep));
   padding: clamp(20px, 3vw, 40px);
   display: flex; flex-direction: column; justify-content: space-between;
 }
 .feat-art > * { position: relative; z-index: 2; }
 .feat-art .photo { z-index: 1; }
+.feat-video { z-index: 2; }
+/* a silent looping clip is decoration, so it stops when motion is unwelcome */
+@media (prefers-reduced-motion: reduce) { .feat-video { display: none; } }
 .feat-art .tag {
   align-self: flex-start;
   font-family: var(--label); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
@@ -507,7 +511,7 @@ p { margin: 0; }
 .checks li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--ink-2); line-height: 1.55; }
 .checks svg { width: 21px; height: 21px; color: var(--aqua); flex: none; margin-top: 2px; }
 .checks b { color: var(--ink); font-weight: 600; }
-@media (max-width: 860px) { .feat { grid-template-columns: 1fr; } .feat-art { order: -1; aspect-ratio: 16/10; } }
+@media (max-width: 860px) { .feat { grid-template-columns: 1fr; } .feat-art { order: -1; aspect-ratio: 4/5; max-width: 460px; margin-inline: auto; } }
 
 /* ---------- why patients choose us ---------- */
 .why-track { position: relative; }
@@ -1100,7 +1104,16 @@ p { margin: 0; }
 <section class="section" style="background:var(--bg-alt)">
   <div class="wrap feat">
     <div class="feat-art reveal">
-      <img class="photo" src="assets/cosmetic-consultation.jpg" alt="A dentist reviewing a digital smile design with a patient" onerror="this.remove()">
+      <!-- Drop assets/featured-treatment.mp4 in and it plays here. Without it the
+           video removes itself and the still below takes over; without that, the
+           gradient panel shows. -->
+      <video class="photo feat-video" poster="assets/featured-treatment-poster.jpg"
+             autoplay muted loop playsinline preload="metadata" aria-hidden="true"
+             onloadeddata="var p=this.parentElement, s=p&amp;&amp;p.querySelector('img.photo'); if (s) s.hidden = true;">
+        <source src="assets/featured-treatment.webm" type="video/webm">
+        <source src="assets/featured-treatment.mp4" type="video/mp4">
+      </video>
+      <img class="photo" src="assets/featured-treatment-poster.jpg" alt="Close-up of a smile after cosmetic treatment" onerror="this.remove()">
       <span class="tag">Featured treatment</span>
       <span class="cap">
         <b>Digital smile design</b>
@@ -1935,6 +1948,38 @@ p { margin: 0; }
       track.appendChild(clone);
     });
   }
+
+  /* ---- featured treatment video ---- */
+  (function () {
+    var vid = document.querySelector(".feat-video");
+    if (!vid) return;
+
+    function fallBackToStill() {
+      if (!vid.isConnected) return;   /* already fell back; don't run twice */
+      var still = vid.parentElement.querySelector("img.photo");
+      if (still) still.hidden = false;
+      vid.remove();
+    }
+
+    /* motion off: the clip is decoration, so the still does the job */
+    if (reduce) { vid.pause(); fallBackToStill(); return; }
+
+    /* no playable source (codec unsupported, files missing) — NETWORK_NO_SOURCE */
+    vid.addEventListener("error", fallBackToStill, true);
+    setTimeout(function () {
+      if (vid.networkState === 3 /* NETWORK_NO_SOURCE */) fallBackToStill();
+    }, 2500);
+
+    /* some browsers refuse autoplay even when muted */
+    var tryPlay = vid.play();
+    if (tryPlay && tryPlay.catch) tryPlay.catch(fallBackToStill);
+
+    /* don't burn cycles decoding video in a background tab */
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) vid.pause();
+      else if (vid.isConnected) vid.play().catch(function () {});
+    });
+  })();
 
   /* ---- live Google rating (Places API) ----------------------------------
      Set both values to switch the static badge for the clinic's real rating.

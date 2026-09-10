@@ -10,7 +10,8 @@ image removes itself, so the page never shows a broken-image icon.
 | Filename | Where it appears | Aspect ratio | Subject |
 |---|---|---|---|
 | `hero-smile.jpg` | Hero, right side | 4 : 4.4 (portrait) | The lead dentist, or a confident patient |
-| `cosmetic-consultation.jpg` | "Smiles you'll love to share" | 5 : 4.4 | Dentist and patient reviewing a treatment plan |
+| `featured-treatment.webm` + `.mp4` | "Smiles you'll love to share" | 858 x 1072 (portrait) | Short silent loop; both formats, WebM first |
+| `featured-treatment-poster.jpg` | same panel | 858 x 1072 | First frame of the clip; shows while it loads, and instead of it when motion is reduced |
 
 ## Services stage
 
