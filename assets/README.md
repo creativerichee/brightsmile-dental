@@ -24,7 +24,6 @@ These six fill the panel that changes as you scroll the services section.
 | `svc-implants.jpg` | Dental implants | 4 : 3 |
 | `svc-invisalign.jpg` | Invisalign | 4 : 3 |
 | `svc-whitening.jpg` | Teeth whitening | 4 : 3 |
-| `svc-emergency.jpg` | Emergency dentistry | 4 : 3 |
 
 ## Team
 
