@@ -599,12 +599,18 @@ p { margin: 0; }
   aspect-ratio: 16/11; background: var(--surface-sunk);
   touch-action: pan-y; cursor: ew-resize; user-select: none;
 }
+/* clip-path makes .after its own stacking context, so a photo's z-index inside
+   .before would otherwise paint over the whole clipped layer. Order the layers
+   explicitly and let the images sit inside their own layer. */
 .compare .layer { position: absolute; inset: 0; }
+.compare .before { z-index: 1; }
+.compare .after  { z-index: 2; }
+.compare .photo  { z-index: auto; }
 .compare img, .compare svg { -webkit-user-drag: none; user-select: none; pointer-events: none; }
 .compare .layer svg { width: 100%; height: 100%; }
 .compare .after { clip-path: inset(0 0 0 var(--pos, 50%)); }
 .compare .handle {
-  position: absolute; top: 0; bottom: 0; left: var(--pos, 50%);
+  position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); z-index: 3;
   width: 2px; background: rgba(255,255,255,.95); transform: translateX(-1px);
   box-shadow: 0 0 0 1px rgba(6,34,46,.16);
 }
@@ -616,7 +622,7 @@ p { margin: 0; }
 }
 .compare .knob svg { width: 20px; height: 20px; }
 .compare .lbl {
-  position: absolute; top: 14px; font-family: var(--label); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+  position: absolute; top: 14px; z-index: 3; font-family: var(--label); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
   padding: 6px 11px; border-radius: 999px; backdrop-filter: blur(8px);
 }
 .compare .lbl.b { left: 14px; background: rgba(6,34,46,.62); color: #fff; }
