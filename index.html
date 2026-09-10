@@ -673,11 +673,19 @@ p { margin: 0; }
 @media (max-width: 860px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
 
 /* ---------- testimonials ---------- */
-.rating-head { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 40px; }
-.rating-score { font-family: var(--display); font-size: clamp(46px, 6vw, 68px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
-.rating-score sup { font-size: .34em; color: var(--ink-3); letter-spacing: 0; }
-.stars-lg { display: flex; gap: 4px; color: var(--gold); }
-.stars-lg svg { width: 20px; height: 20px; }
+.rating-head { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 40px; }
+.google-rating { width: clamp(240px, 30vw, 360px); height: auto; }
+/* the badge is dark grey artwork on transparency, so on a dark ground it sits
+   on its own light chip rather than disappearing */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .google-rating {
+    background: #FFFFFF; border-radius: 14px; padding: 14px 18px;
+  }
+}
+:root[data-theme="dark"] .google-rating {
+  background: #FFFFFF; border-radius: 14px; padding: 14px 18px;
+}
+.rating-note { font-family: var(--label); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
 .marquee { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
 .marquee-track { display: flex; gap: 18px; width: max-content; animation: slide 46s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
@@ -1448,9 +1456,9 @@ p { margin: 0; }
       </div>
     </div>
     <div class="rating-head reveal">
-      <div class="rating-score">4.9<sup>/5</sup></div>
-      <div class="stars-lg" aria-label="4.9 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-      <p style="font-family:var(--label);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)">Based on 2,500+ Google reviews</p>
+      <img class="google-rating" src="assets/google-rating.png"
+           alt="Rated 4.9 out of 5 on Google Reviews" width="360" height="143" loading="lazy">
+      <p class="rating-note">Based on 2,500+ Google reviews</p>
     </div>
   </div>
   <div class="marquee reveal d1">
