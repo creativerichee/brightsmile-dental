@@ -36,14 +36,15 @@ These six fill the panel that changes as you scroll the services section.
 
 ## Before / after
 
-Three draggable comparisons. Each pair must be shot at the same angle,
-distance and lighting — the slider wipes between them, so any mismatch shows.
+Three draggable comparisons, named by position rather than treatment since the
+page no longer labels them. Each pair must be shot at the same angle, distance
+and lighting - the slider wipes between them, so any mismatch shows.
 
-| Filename | Case | Aspect ratio |
+| Filename | Position | Aspect ratio |
 |---|---|---|
-| `veneers-before.jpg` / `veneers-after.jpg` | Porcelain veneers | 16 : 11 |
-| `whitening-before.jpg` / `whitening-after.jpg` | Teeth whitening | 16 : 11 |
-| `aligners-before.jpg` / `aligners-after.jpg` | Clear aligners | 16 : 11 |
+| `case-a-before.jpg` / `case-a-after.jpg` | First slider | 16 : 11 (1120 x 770) |
+| `case-b-before.jpg` / `case-b-after.jpg` | Second slider | 16 : 11 |
+| `case-c-before.jpg` / `case-c-after.jpg` | Third slider | 16 : 11 |
 
 ## Gallery
 

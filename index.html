@@ -600,6 +600,7 @@ p { margin: 0; }
   touch-action: pan-y; cursor: ew-resize; user-select: none;
 }
 .compare .layer { position: absolute; inset: 0; }
+.compare img, .compare svg { -webkit-user-drag: none; user-select: none; pointer-events: none; }
 .compare .layer svg { width: 100%; height: 100%; }
 .compare .after { clip-path: inset(0 0 0 var(--pos, 50%)); }
 .compare .handle {
@@ -1291,9 +1292,9 @@ p { margin: 0; }
 
     <div class="compare-row">
       <figure style="margin:0" class="reveal">
-        <div class="compare" data-compare tabindex="0" role="slider" aria-label="Porcelain veneers before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <div class="compare" data-compare tabindex="0" role="slider" aria-label="Case A before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
           <div class="layer before">
-            <img class="photo" src="assets/veneers-before.jpg" alt="Before treatment: worn, uneven front teeth" onerror="this.remove()">
+            <img class="photo" src="assets/case-a-before.jpg" alt="Case A before treatment" onerror="this.remove()">
             <svg viewBox="0 0 560 385" role="img" aria-label="Before: worn, uneven, discoloured front teeth">
               <rect width="560" height="385" fill="#EFE7DC"/>
               <path d="M120 150c0-46 70-70 160-70s160 24 160 70c0 74-72 132-160 132S120 224 120 150Z" fill="#B9756B" opacity=".22"/>
@@ -1307,11 +1308,10 @@ p { margin: 0; }
               </g>
               <path d="M250 152l6 42M300 152l-5 40" stroke="#A98A5C" stroke-width="2" opacity=".55"/>
               <path d="M243 150c14 6 26 2 34 0" stroke="#9C7B4E" stroke-width="3" fill="none" opacity=".5"/>
-              <g font-family="Outfit, sans-serif" font-size="11" fill="#8B6C4A" letter-spacing="1.5"><text x="34" y="352">SHADE A3.5 · WEAR ON 8, 9</text></g>
             </svg>
           </div>
           <div class="layer after">
-            <img class="photo" src="assets/veneers-after.jpg" alt="After treatment: even porcelain veneers" onerror="this.remove()">
+            <img class="photo" src="assets/case-a-after.jpg" alt="Case A after treatment" onerror="this.remove()">
             <svg viewBox="0 0 560 385" role="img" aria-label="After: even, bright porcelain veneers">
               <rect width="560" height="385" fill="#E7F4F1"/>
               <path d="M120 150c0-46 70-70 160-70s160 24 160 70c0 74-72 132-160 132S120 224 120 150Z" fill="#C0555A" opacity=".22"/>
@@ -1324,7 +1324,6 @@ p { margin: 0; }
                 <path d="M354 162h26c4 0 6 3 6 7v26c0 11-7 19-19 19s-19-8-19-19v-26c0-4 2-7 6-7Z"/>
               </g>
               <path d="M252 158c0 14-1 26-3 34M308 158c0 14 1 26 3 34" stroke="#CFE9E3" stroke-width="3" fill="none"/>
-              <g font-family="Outfit, sans-serif" font-size="11" fill="#0E9E92" letter-spacing="1.5"><text x="34" y="352">SHADE B1 · 8 VENEERS · 3 VISITS</text></g>
             </svg>
           </div>
           <span class="lbl b">Before</span><span class="lbl a">After</span>
@@ -1333,9 +1332,9 @@ p { margin: 0; }
       </figure>
 
       <figure style="margin:0" class="reveal d1">
-        <div class="compare" data-compare tabindex="0" role="slider" aria-label="Teeth whitening before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <div class="compare" data-compare tabindex="0" role="slider" aria-label="Case B before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
           <div class="layer before">
-            <img class="photo" src="assets/whitening-before.jpg" alt="Before whitening: yellowed enamel" onerror="this.remove()">
+            <img class="photo" src="assets/case-b-before.jpg" alt="Case B before treatment" onerror="this.remove()">
             <svg viewBox="0 0 560 385" role="img" aria-label="Before: yellowed enamel">
               <rect width="560" height="385" fill="#EFE7DC"/>
               <path d="M130 160c0-42 66-64 150-64s150 22 150 64c0 70-68 124-150 124S130 230 130 160Z" fill="#B9756B" opacity=".2"/>
@@ -1345,11 +1344,10 @@ p { margin: 0; }
                 <rect x="170" y="163" width="26" height="46" rx="11"/><rect x="368" y="163" width="26" height="46" rx="11"/>
               </g>
               <g opacity=".35" fill="#A98A5C"><rect x="236" y="150" width="44" height="12" rx="6"/><rect x="284" y="150" width="44" height="12" rx="6"/></g>
-              <g font-family="Outfit, sans-serif" font-size="11" fill="#8B6C4A" letter-spacing="1.5"><text x="34" y="352">SHADE A3.5 · COFFEE STAINING</text></g>
             </svg>
           </div>
           <div class="layer after">
-            <img class="photo" src="assets/whitening-after.jpg" alt="After whitening: enamel six shades lighter" onerror="this.remove()">
+            <img class="photo" src="assets/case-b-after.jpg" alt="Case B after treatment" onerror="this.remove()">
             <svg viewBox="0 0 560 385" role="img" aria-label="After: brightened enamel six shades lighter">
               <rect width="560" height="385" fill="#E7F4F1"/>
               <path d="M130 160c0-42 66-64 150-64s150 22 150 64c0 70-68 124-150 124S130 230 130 160Z" fill="#C0555A" opacity=".2"/>
@@ -1359,7 +1357,6 @@ p { margin: 0; }
                 <rect x="170" y="163" width="26" height="46" rx="11"/><rect x="368" y="163" width="26" height="46" rx="11"/>
               </g>
               <g opacity=".5" fill="#DFF3EF"><rect x="244" y="158" width="8" height="34" rx="4"/><rect x="292" y="158" width="8" height="34" rx="4"/></g>
-              <g font-family="Outfit, sans-serif" font-size="11" fill="#0E9E92" letter-spacing="1.5"><text x="34" y="352">SHADE B1 · ONE 90-MIN SESSION</text></g>
             </svg>
           </div>
           <span class="lbl b">Before</span><span class="lbl a">After</span>
@@ -1368,9 +1365,9 @@ p { margin: 0; }
       </figure>
 
       <figure style="margin:0" class="reveal d2">
-        <div class="compare" data-compare tabindex="0" role="slider" aria-label="Clear aligners before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <div class="compare" data-compare tabindex="0" role="slider" aria-label="Case C before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
           <div class="layer before">
-            <img class="photo" src="assets/aligners-before.jpg" alt="Before aligners: crowded front teeth" onerror="this.remove()">
+            <img class="photo" src="assets/case-c-before.jpg" alt="Case C before treatment" onerror="this.remove()">
             <svg viewBox="0 0 560 385" role="img" aria-label="Before: crowded, overlapping front teeth">
               <rect width="560" height="385" fill="#EFE7DC"/>
               <path d="M130 160c0-42 66-64 150-64s150 22 150 64c0 70-68 124-150 124S130 230 130 160Z" fill="#B9756B" opacity=".2"/>
@@ -1381,11 +1378,10 @@ p { margin: 0; }
                 <g transform="rotate(12 348 184)"><rect x="332" y="158" width="32" height="56" rx="13"/></g>
                 <rect x="172" y="163" width="26" height="46" rx="11"/><rect x="366" y="165" width="26" height="46" rx="11"/>
               </g>
-              <g font-family="Outfit, sans-serif" font-size="11" fill="#8B6C4A" letter-spacing="1.5"><text x="34" y="352">CROWDING · 3.1 mm</text></g>
             </svg>
           </div>
           <div class="layer after">
-            <img class="photo" src="assets/aligners-after.jpg" alt="After aligners: evenly aligned teeth" onerror="this.remove()">
+            <img class="photo" src="assets/case-c-after.jpg" alt="Case C after treatment" onerror="this.remove()">
             <svg viewBox="0 0 560 385" role="img" aria-label="After: evenly aligned arch">
               <rect width="560" height="385" fill="#E7F4F1"/>
               <path d="M130 160c0-42 66-64 150-64s150 22 150 64c0 70-68 124-150 124S130 230 130 160Z" fill="#C0555A" opacity=".2"/>
@@ -1395,7 +1391,6 @@ p { margin: 0; }
                 <rect x="170" y="163" width="26" height="46" rx="11"/><rect x="368" y="163" width="26" height="46" rx="11"/>
               </g>
               <path d="M164 142c40-26 192-26 232 0" fill="none" stroke="#17C3B2" stroke-opacity=".5" stroke-width="2" stroke-dasharray="4 7"/>
-              <g font-family="Outfit, sans-serif" font-size="11" fill="#0E9E92" letter-spacing="1.5"><text x="34" y="352">18 TRAYS · 11 MONTHS</text></g>
             </svg>
           </div>
           <span class="lbl b">Before</span><span class="lbl a">After</span>
@@ -1918,6 +1913,7 @@ p { margin: 0; }
       var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
       setPos((x / rect.width) * 100);
     }
+    box.addEventListener("dragstart", function (e) { e.preventDefault(); });
     box.addEventListener("pointerdown", function (e) { dragging = true; box.setPointerCapture(e.pointerId); fromEvent(e); });
     box.addEventListener("pointermove", function (e) { if (dragging) fromEvent(e); });
     box.addEventListener("pointerup", function () { dragging = false; });
