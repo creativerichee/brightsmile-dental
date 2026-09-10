@@ -496,7 +496,7 @@ p { margin: 0; }
   box-shadow: var(--shadow-lg); aspect-ratio: 858 / 1072;
   background: linear-gradient(165deg, var(--deep-2), var(--deep));
   padding: clamp(20px, 3vw, 40px);
-  display: flex; flex-direction: column; justify-content: space-between;
+  display: flex; flex-direction: column; justify-content: flex-start;
 }
 .feat-art > * { position: relative; z-index: 2; }
 .feat-art .photo { z-index: 1; }
@@ -508,9 +508,6 @@ p { margin: 0; }
   font-family: var(--label); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
   color: #032027; background: var(--mint); padding: 7px 13px; border-radius: 999px;
 }
-.feat-art .cap { color: #fff; }
-.feat-art .cap b { display: block; font-family: var(--display); font-size: clamp(20px, 2.4vw, 27px); font-weight: 600; letter-spacing: -0.03em; }
-.feat-art .cap span { display: block; margin-top: 6px; font-size: 14px; color: var(--on-dark-2); }
 
 .feat-copy > * + * { margin-top: 18px; }
 .feat-copy .checks { margin-top: 26px; }
@@ -1123,10 +1120,6 @@ p { margin: 0; }
       </video>
       <img class="photo" src="assets/featured-treatment-poster.jpg" alt="Close-up of a smile after cosmetic treatment" onerror="this.remove()">
       <span class="tag">Featured treatment</span>
-      <span class="cap">
-        <b>Digital smile design</b>
-        <span>Veneers 6–11 · previewed before any enamel is touched</span>
-      </span>
     </div>
     <div class="feat-copy">
       <span class="eyebrow reveal">Cosmetic dentistry</span>
