@@ -471,6 +471,15 @@ p { margin: 0; }
   font-weight: 600; letter-spacing: -0.03em; margin-top: 8px;
 }
 .svc-slide .photo { z-index: 1; }
+/* with a photo behind it the caption needs to sit above, on its own scrim */
+.svc-slide .tag, .svc-slide .name { position: relative; z-index: 3; }
+.svc-slide:has(img.photo)::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(transparent 45%, rgba(3,20,26,.88));
+  pointer-events: none;
+}
+.svc-slide:has(img.photo) .tag { color: var(--mint); }
+.svc-slide:has(img.photo) .name { color: #FFFFFF; }
 
 @media (max-width: 900px) {
   .svc-stage { grid-template-columns: 1fr; gap: 20px; }
