@@ -676,16 +676,15 @@ p { margin: 0; }
 /* ---------- testimonials ---------- */
 .rating-head { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 40px; }
 .google-rating { width: clamp(240px, 30vw, 360px); height: auto; }
-/* the badge is dark grey artwork on transparency, so on a dark ground it sits
-   on its own light chip rather than disappearing */
+/* the grey "4.9/5 Reviews" lettering would sink into a dark ground, so the
+   dark theme gets its own artwork with that text lightened - both transparent */
+.dark-art { display: none; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .google-rating {
-    background: #FFFFFF; border-radius: 14px; padding: 14px 18px;
-  }
+  :root:not([data-theme="light"]) .light-art { display: none; }
+  :root:not([data-theme="light"]) .dark-art { display: block; }
 }
-:root[data-theme="dark"] .google-rating {
-  background: #FFFFFF; border-radius: 14px; padding: 14px 18px;
-}
+:root[data-theme="dark"] .light-art { display: none; }
+:root[data-theme="dark"] .dark-art { display: block; }
 .live-rating { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .google-mark { width: clamp(150px, 18vw, 200px); height: auto; }
 .live-score { display: flex; align-items: center; gap: 12px; }
@@ -704,10 +703,7 @@ p { margin: 0; }
   text-transform: uppercase; color: var(--ink-3); border-bottom: 1px solid transparent;
 }
 .live-note:hover { color: var(--aqua); border-bottom-color: var(--aqua); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .google-mark { background: #FFF; border-radius: 12px; padding: 10px 14px; }
-}
-:root[data-theme="dark"] .google-mark { background: #FFF; border-radius: 12px; padding: 10px 14px; }
+/* the wordmark is all saturated colour, so it reads on either ground as-is */
 .rating-note { font-family: var(--label); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
 .marquee { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
 .marquee-track { display: flex; gap: 18px; width: max-content; animation: slide 46s linear infinite; }
@@ -1479,8 +1475,10 @@ p { margin: 0; }
       </div>
     </div>
     <div class="rating-head reveal" id="googleReviews">
-      <img class="google-rating" src="assets/google-rating.png"
+      <img class="google-rating light-art" src="assets/google-rating.png"
            alt="Rated 4.9 out of 5 on Google Reviews" width="360" height="143" loading="lazy">
+      <img class="google-rating dark-art" src="assets/google-rating-dark.png"
+           alt="" aria-hidden="true" width="360" height="143" loading="lazy">
       <p class="rating-note">Based on 2,500+ Google reviews</p>
 
       <!-- Filled in from the Google Places API when a key and Place ID are set
