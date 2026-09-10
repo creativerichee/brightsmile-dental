@@ -752,14 +752,6 @@ p { margin: 0; }
 .quote cite { font-style: normal; font-size: 13.5px; font-weight: 600; }
 .quote small { display: block; font-family: var(--label); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
 
-/* ---------- emergency band ---------- */
-.emergency { background: var(--deep); color: #fff; border-radius: var(--r-xl); padding: clamp(30px, 4vw, 52px); display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; position: relative; overflow: hidden; }
-.emergency h2 { color: #fff; font-size: clamp(26px, 3.2vw, 40px); }
-.emergency p { color: var(--on-dark-2); font-size: 15px; margin-top: 10px; max-width: 60ch; }
-.emergency .acts { display: flex; gap: 12px; flex-wrap: wrap; }
-.emergency .pulse-tag { margin-bottom: 12px; }
-@media (max-width: 760px) { .emergency { grid-template-columns: 1fr; } }
-
 /* ---------- faq ---------- */
 .faq-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(26px, 4vw, 60px); align-items: start; }
 .faq-list { border-top: 1px solid var(--line); }
@@ -911,7 +903,6 @@ p { margin: 0; }
   <symbol id="i-implant" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6.5c0-2 1.8-3.5 4-3.5s4 1.5 4 3.5S14.2 10 12 10 8 8.5 8 6.5Z"/><path d="M12 10v10.5M9.5 12.5h5M9.8 15.4h4.4M10.2 18.2h3.6"/></symbol>
   <symbol id="i-align" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5C6.5 5 17.5 5 20 8.5"/><path d="M4 15.5C6.5 19 17.5 19 20 15.5"/><path d="M9 7.2v2.6M15 7.2v2.6M9 14.2v2.6M15 14.2v2.6M12 6.8v3.4M12 13.8v3.4"/></symbol>
   <symbol id="i-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></symbol>
-  <symbol id="i-emergency" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 20.4 6v6c0 4.7-3.3 8-8.4 9.2C6.9 20 3.6 16.7 3.6 12V6Z"/><path d="M12 8.6v3M12 14.4h.01"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="8" r="3.2"/><path d="M3.5 20a6 6 0 0 1 12 0"/><path d="M16.5 5.2a3.2 3.2 0 0 1 0 5.6M17.5 14.4a6 6 0 0 1 3 5.6"/></symbol>
   <symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="12.5" rx="2.5"/><path d="M9 20.5h6M12 16.5v4"/><path d="M6.5 12.4 9 9.2l2.2 2.6 2-3.4 1.8 4"/></symbol>
   <symbol id="i-cup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5.5A5.5 5.5 0 0 1 11.5 20h-2A5.5 5.5 0 0 1 4 14.5Z"/><path d="M17 10.5h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7.5 3v2.5M11 3v2.5M14.5 3v2.5"/></symbol>
@@ -939,7 +930,7 @@ p { margin: 0; }
     </div>
     <div class="utility-group">
       <span class="utility-item"><svg><use href="#i-clock"/></svg> Mon–Sat · 8:00 AM – 6:00 PM</span>
-      <span class="pulse-tag"><span class="pulse-dot"></span> Same-day emergency slots open</span>
+      <span class="pulse-tag"><span class="pulse-dot"></span> Now accepting new patients</span>
     </div>
   </div>
 </div>
@@ -1514,28 +1505,9 @@ p { margin: 0; }
   <div class="marquee reveal d1">
     <div class="marquee-track" id="track">
       <article class="quote"><span class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><blockquote>“I hadn't seen a dentist in nine years because of anxiety. They talked me through every step and I actually booked my next visit on the way out.”</blockquote><footer><span class="av">JL</span><span><cite>Jordan L.</cite><small>Invisalign · 11 months</small></span></footer></article>
-      <article class="quote"><span class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><blockquote>“Cracked a molar on a Sunday. They called back within ten minutes and had me in a chair by Monday morning.”</blockquote><footer><span class="av">PN</span><span><cite>Priya N.</cite><small>Emergency crown</small></span></footer></article>
       <article class="quote"><span class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><blockquote>“The 3D preview sold me. I saw exactly what my veneers would look like before agreeing to anything.”</blockquote><footer><span class="av">MR</span><span><cite>Michael R.</cite><small>8 porcelain veneers</small></span></footer></article>
       <article class="quote"><span class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><blockquote>“My four-year-old asks when she can go back to the tooth place. That still amazes me.”</blockquote><footer><span class="av">DA</span><span><cite>Dana A.</cite><small>Pediatric check-up</small></span></footer></article>
       <article class="quote"><span class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><blockquote>“Two implants, zero drama. The fixed quote was the same number I paid at the end.”</blockquote><footer><span class="av">SB</span><span><cite>Samuel B.</cite><small>Implants 19 &amp; 30</small></span></footer></article>
-    </div>
-  </div>
-</section>
-
-<!-- ================= emergency ================= -->
-<section class="section" style="padding-block:clamp(30px,4vw,60px)">
-  <div class="wrap">
-    <div class="emergency reveal">
-      <div class="grain" aria-hidden="true"></div>
-      <div style="position:relative">
-        <span class="pulse-tag"><span class="pulse-dot"></span> Emergency line open now</span>
-        <h2>In pain right now? Don't wait it out.</h2>
-        <p>Toothache, swelling, a lost filling or a knocked-out tooth — call us and we will find you a chair today. If it's after hours, our on-call dentist returns every message.</p>
-      </div>
-      <div class="acts" style="position:relative">
-        <a class="btn btn-primary" href="tel:+12125557820"><svg><use href="#i-phone"/></svg> (212) 555-7820</a>
-        <a class="btn btn-light" href="#book">Request urgent slot</a>
-      </div>
     </div>
   </div>
 </section>
@@ -1551,7 +1523,7 @@ p { margin: 0; }
         <span class="chip"><svg><use href="#i-phone"/></svg></span>
         <div>
           <b>(212) 555-7820</b>
-          <p>Mon–Sat, 8:00 AM – 6:00 PM · emergency line answered 24/7</p>
+          <p>Mon–Sat, 8:00 AM – 6:00 PM</p>
           <a class="arrow-link" href="#book" style="margin-top:10px">Or request a slot online <svg><use href="#i-arrow"/></svg></a>
         </div>
       </div>
@@ -1590,12 +1562,12 @@ p { margin: 0; }
     <div class="reveal">
       <span class="eyebrow">Book a visit</span>
       <h2 class="h-l" style="margin-top:14px">Let's get you <span class="gild">in the chair.</span></h2>
-      <p class="lede" style="margin-top:16px">Send a request and the front desk will confirm your slot by phone within one business hour. For urgent pain, please call instead.</p>
+      <p class="lede" style="margin-top:16px">Send a request and the front desk will confirm your slot by phone within one business hour. Prefer to talk it through? Call us instead.</p>
       <div class="contact-list">
         <div class="contact-item"><span class="chip"><svg><use href="#i-phone"/></svg></span><div><small>Call us</small><b><a href="tel:+12125557820">(212) 555-7820</a></b><p>Mon–Sat, 8:00 AM – 6:00 PM</p></div></div>
         <div class="contact-item"><span class="chip"><svg><use href="#i-pin"/></svg></span><div><small>Location</small><b>245 Madison Avenue</b><p>New York, NY 10001 · Between E 38th &amp; E 39th</p></div></div>
         <div class="contact-item"><span class="chip"><svg><use href="#i-mail"/></svg></span><div><small>Email</small><b><a href="mailto:hello@brightsmile.dental">hello@brightsmile.dental</a></b><p>Replies within one business day</p></div></div>
-        <div class="contact-item"><span class="chip"><svg><use href="#i-clock"/></svg></span><div><small>Hours</small><b>Mon – Sat · 8:00 AM – 6:00 PM</b><p>Sunday closed · emergency line 24/7</p></div></div>
+        <div class="contact-item"><span class="chip"><svg><use href="#i-clock"/></svg></span><div><small>Hours</small><b>Mon – Sat · 8:00 AM – 6:00 PM</b><p>Sunday closed</p></div></div>
       </div>
     </div>
 
@@ -1626,7 +1598,6 @@ p { margin: 0; }
             <option>Teeth whitening</option>
             <option>Invisalign assessment</option>
             <option>Dental implants</option>
-            <option>Emergency — I'm in pain</option>
           </select>
         </div>
         <div class="field">
@@ -1654,7 +1625,7 @@ p { margin: 0; }
       <div class="form-success" role="status">
         <span class="tick"><svg><use href="#i-tick"/></svg></span>
         <h3 class="h-m">Request received</h3>
-        <p style="color:var(--ink-2);max-width:38ch">Thanks — the front desk will call you within one business hour to confirm the time. In pain right now? Call (212) 555-7820.</p>
+        <p style="color:var(--ink-2);max-width:38ch">Thanks — the front desk will call you within one business hour to confirm the time. Anything urgent in the meantime, call (212) 555-7820.</p>
         <button class="btn btn-ghost" type="button" id="resetForm">Send another request</button>
       </div>
     </div>
@@ -1690,7 +1661,7 @@ p { margin: 0; }
       </div>
       <div>
         <h4>Services</h4>
-        <ul><li><a href="#services">General dentistry</a></li><li><a href="#services">Cosmetic dentistry</a></li><li><a href="#services">Dental implants</a></li><li><a href="#services">Invisalign</a></li><li><a href="#services">Teeth whitening</a></li><li><a href="#services">Emergency dentistry</a></li></ul>
+        <ul><li><a href="#services">General dentistry</a></li><li><a href="#services">Cosmetic dentistry</a></li><li><a href="#services">Dental implants</a></li><li><a href="#services">Invisalign</a></li><li><a href="#services">Teeth whitening</a></li></ul>
       </div>
       <div>
         <h4>Patients</h4>
