@@ -47,14 +47,16 @@ distance and lighting — the slider wipes between them, so any mismatch shows.
 
 ## Gallery
 
+Five tiles: three upright shots across the top, then the wide chairside scan
+beside one more upright shot.
+
 | Filename | Aspect ratio | Subject |
 |---|---|---|
-| `gallery-treatment-room.jpg` | 2 : 3 (tall) | Treatment room |
-| `gallery-smile.jpg` | 4 : 1 (wide) | Smiling patient |
-| `gallery-sterilisation.jpg` | 2 : 1 | Sterilisation area |
-| `gallery-reception.jpg` | 2 : 1 | Reception / waiting area |
-| `gallery-scanner.jpg` | 2 : 1 | Scanner or equipment detail |
-| `gallery-aligners.jpg` | 2 : 1 | Aligner trays or lab work |
+| `gallery-treatment-room.jpg` | 0.68 (upright) | Treatment room |
+| `gallery-reception.jpg` | 0.68 (upright) | Reception / waiting area |
+| `gallery-sterilisation.jpg` | 0.68 (upright) | Sterilisation area |
+| `gallery-scanner.jpg` | 1.39 (wide) | Chairside scan on screen — spans two columns |
+| `gallery-aligners.jpg` | 0.68 (upright) | Aligner trays |
 
 ## Notes
 
