@@ -626,6 +626,9 @@ p { margin: 0; }
   padding: 6px 11px; border-radius: 999px; backdrop-filter: blur(8px);
 }
 .compare .lbl.b { left: 14px; background: rgba(6,34,46,.62); color: #fff; }
+/* once the divider reaches a pill, fade it rather than leaving a clipped sliver */
+.compare .lbl { transition: opacity .18s ease; }
+.compare.hide-after .lbl.a, .compare.hide-before .lbl.b { opacity: 0; }
 .compare .lbl.a { right: 14px; background: var(--aqua); color: #032027; }
 @media (max-width: 1000px) { .compare-row { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 660px) { .compare-row { grid-template-columns: 1fr; } }
@@ -1315,6 +1318,7 @@ p { margin: 0; }
               <path d="M250 152l6 42M300 152l-5 40" stroke="#A98A5C" stroke-width="2" opacity=".55"/>
               <path d="M243 150c14 6 26 2 34 0" stroke="#9C7B4E" stroke-width="3" fill="none" opacity=".5"/>
             </svg>
+            <span class="lbl b">Before</span>
           </div>
           <div class="layer after">
             <img class="photo" src="assets/case-a-after.jpg" alt="Case A after treatment" onerror="this.remove()">
@@ -1331,8 +1335,8 @@ p { margin: 0; }
               </g>
               <path d="M252 158c0 14-1 26-3 34M308 158c0 14 1 26 3 34" stroke="#CFE9E3" stroke-width="3" fill="none"/>
             </svg>
+            <span class="lbl a">After</span>
           </div>
-          <span class="lbl b">Before</span><span class="lbl a">After</span>
           <div class="handle"><span class="knob"><svg><use href="#i-drag"/></svg></span></div>
         </div>
       </figure>
@@ -1351,6 +1355,7 @@ p { margin: 0; }
               </g>
               <g opacity=".35" fill="#A98A5C"><rect x="236" y="150" width="44" height="12" rx="6"/><rect x="284" y="150" width="44" height="12" rx="6"/></g>
             </svg>
+            <span class="lbl b">Before</span>
           </div>
           <div class="layer after">
             <img class="photo" src="assets/case-b-after.jpg" alt="Case B after treatment" onerror="this.remove()">
@@ -1364,8 +1369,8 @@ p { margin: 0; }
               </g>
               <g opacity=".5" fill="#DFF3EF"><rect x="244" y="158" width="8" height="34" rx="4"/><rect x="292" y="158" width="8" height="34" rx="4"/></g>
             </svg>
+            <span class="lbl a">After</span>
           </div>
-          <span class="lbl b">Before</span><span class="lbl a">After</span>
           <div class="handle"><span class="knob"><svg><use href="#i-drag"/></svg></span></div>
         </div>
       </figure>
@@ -1385,6 +1390,7 @@ p { margin: 0; }
                 <rect x="172" y="163" width="26" height="46" rx="11"/><rect x="366" y="165" width="26" height="46" rx="11"/>
               </g>
             </svg>
+            <span class="lbl b">Before</span>
           </div>
           <div class="layer after">
             <img class="photo" src="assets/case-c-after.jpg" alt="Case C after treatment" onerror="this.remove()">
@@ -1398,8 +1404,8 @@ p { margin: 0; }
               </g>
               <path d="M164 142c40-26 192-26 232 0" fill="none" stroke="#17C3B2" stroke-opacity=".5" stroke-width="2" stroke-dasharray="4 7"/>
             </svg>
+            <span class="lbl a">After</span>
           </div>
-          <span class="lbl b">Before</span><span class="lbl a">After</span>
           <div class="handle"><span class="knob"><svg><use href="#i-drag"/></svg></span></div>
         </div>
       </figure>
@@ -1913,6 +1919,8 @@ p { margin: 0; }
       pct = Math.max(2, Math.min(98, pct));
       box.style.setProperty("--pos", pct + "%");
       box.setAttribute("aria-valuenow", Math.round(pct));
+      box.classList.toggle("hide-after", pct > 86);
+      box.classList.toggle("hide-before", pct < 14);
     }
     function fromEvent(e) {
       var rect = box.getBoundingClientRect();
