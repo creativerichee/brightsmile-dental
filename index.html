@@ -336,22 +336,126 @@ p { margin: 0; }
 }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 
-/* hero art: enamel arc portrait plate */
-.hero-art { position: relative; }
-.plate {
-  position: relative; border-radius: 30px;
-  overflow: hidden; box-shadow: var(--shadow-lg);
-  background: linear-gradient(160deg, var(--deep-2), var(--deep));
-  aspect-ratio: 4 / 4.4;
+/* ---------- hero: rating pill + proof list ---------- */
+.rating-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--surface); border: 1px solid var(--line-soft);
+  border-radius: 999px; padding: 8px 16px 8px 12px;
+  box-shadow: var(--shadow-sm); font-size: 13.5px; color: var(--ink-3);
 }
-.plate > svg, .plate > .photo { height: 100%; }
-.plate svg { width: 100%; height: 100%; }
+.rating-pill img { height: 18px; width: auto; }
+.rating-pill b { color: var(--ink); font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
+.rating-pill .stars { display: inline-flex; gap: 1px; color: var(--gold); }
+.rating-pill .stars svg { width: 13px; height: 13px; }
+@media (max-width: 420px) { .rating-pill .count { display: none; } }
 
+.hero-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.hero-list li { display: flex; gap: 11px; align-items: center; font-size: 15px; color: var(--ink-2); }
+.hero-list svg { width: 20px; height: 20px; color: var(--aqua); flex: none; }
 
-@media (max-width: 900px) {
-  .hero .wrap { grid-template-columns: 1fr; }
-  .hero-art { order: -1; max-width: 460px; }
+/* ---------- hero: lead qualifier ---------- */
+.lead-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-l);
+  box-shadow: var(--shadow-lg);
+  padding: clamp(22px, 2.6vw, 32px);
 }
+.lead-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
+.lead-head h2 { font-size: clamp(19px, 1.9vw, 23px); letter-spacing: -0.03em; }
+.lead-count { font-size: 12.5px; color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lead-sub { font-size: 13.5px; color: var(--ink-3); margin-top: 6px; }
+.lead-bar { height: 4px; border-radius: 999px; background: var(--surface-sunk); margin: 16px 0 20px; overflow: hidden; }
+.lead-bar i { display: block; height: 100%; width: 25%; border-radius: 999px; background: var(--aqua); transition: width .4s cubic-bezier(.2,.8,.3,1); }
+
+.lead-step[hidden] { display: none; }
+.lead-q { font-size: clamp(16px, 1.7vw, 18px); letter-spacing: -0.02em; margin-bottom: 14px; }
+
+.opts { display: grid; gap: 10px; }
+.opts button {
+  width: 100%; text-align: left; display: flex; flex-direction: column; gap: 3px;
+  background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 14px; padding: 13px 44px 13px 16px; position: relative;
+  transition: border-color .2s ease, background .2s ease, transform .18s cubic-bezier(.2,.8,.3,1);
+}
+.opts button b { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.opts button small { font-size: 13px; color: var(--ink-3); }
+.opts button::after {
+  content: ""; position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--line);
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.opts button:hover { border-color: var(--aqua); background: var(--surface); }
+.opts button[aria-checked="true"] { border-color: var(--aqua); background: var(--mint-wash); }
+.opts button[aria-checked="true"]::after {
+  border-color: var(--aqua); background: var(--aqua);
+  box-shadow: inset 0 0 0 3px var(--surface);
+}
+
+.lead-fields { display: grid; gap: 12px; }
+.lfield { display: flex; flex-direction: column; gap: 6px; }
+.lfield label { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.lfield input {
+  font: inherit; font-size: 16px;            /* 16px keeps iOS from zooming on focus */
+  color: var(--ink); background: var(--surface-2);
+  border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 14px; min-height: 48px; width: 100%;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.lfield input:focus {
+  outline: none; border-color: var(--aqua); background: var(--surface);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--aqua) 20%, transparent);
+}
+.lfield.invalid input { border-color: var(--alert); }
+.lead-submit, .lead-cta { width: 100%; justify-content: center; margin-top: 16px; }
+.lead-submit[disabled] { opacity: .45; cursor: not-allowed; transform: none; box-shadow: var(--shadow-sm); }
+.lead-fine { font-size: 12px; color: var(--ink-3); text-align: center; margin-top: 10px; }
+
+.lead-result { text-align: center; }
+.lead-tag {
+  display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--aqua); background: var(--mint-wash);
+  padding: 6px 12px; border-radius: 999px; margin-bottom: 12px;
+}
+.lead-price {
+  font-family: var(--display); font-size: clamp(34px, 4.4vw, 46px); font-weight: 700;
+  letter-spacing: -0.04em; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.lead-note { font-size: 14px; color: var(--ink-2); margin-top: 10px; }
+.lead-month { font-size: 13.5px; color: var(--aqua); font-weight: 600; margin-top: 8px; }
+.lead-fin { font-size: 12.5px; color: var(--ink-3); margin-top: 12px; }
+.lead-fin a { color: var(--aqua); font-weight: 600; border-bottom: 1px solid color-mix(in srgb, var(--aqua) 45%, transparent); }
+
+.lead-nav { display: flex; align-items: center; gap: 8px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line-soft); }
+.lead-nav[hidden] { display: none; }
+.lead-arrow {
+  width: 34px; height: 34px; flex: none; border-radius: 50%;
+  border: 1px solid var(--line); background: transparent; color: var(--ink-2);
+  font-size: 18px; line-height: 1; display: grid; place-items: center;
+  transition: border-color .2s, color .2s, opacity .2s;
+}
+.lead-arrow:hover:not([disabled]) { border-color: var(--aqua); color: var(--aqua); }
+.lead-arrow[disabled] { opacity: .35; cursor: not-allowed; }
+.lead-hint { font-size: 12.5px; color: var(--ink-3); margin-left: 4px; }
+
+/* talk-to-a-human fallback, under the card */
+.lead-direct { margin-top: 18px; text-align: center; }
+.lead-direct > span { font-size: 12.5px; color: var(--ink-3); }
+.lead-direct-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.dbtn {
+  display: flex; align-items: center; gap: 10px; text-align: left;
+  padding: 12px 14px; border-radius: 14px; color: #fff;
+  transition: transform .2s cubic-bezier(.2,.8,.3,1), box-shadow .2s ease;
+  box-shadow: var(--shadow-sm);
+}
+.dbtn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.dbtn svg { width: 22px; height: 22px; flex: none; }
+.dbtn b { display: block; font-size: 13.5px; font-weight: 600; letter-spacing: -0.01em; }
+.dbtn small { display: block; font-size: 11.5px; opacity: .78; }
+.dbtn.wa { background: #1FAF54; }
+.dbtn.sms { background: var(--deep); border: 1px solid var(--line-dark); }
+@media (max-width: 420px) { .lead-direct-btns { grid-template-columns: 1fr; } }
 
 /* ---------- hero CTA + rating ---------- */
 .btn-hero {
@@ -376,18 +480,6 @@ p { margin: 0; }
 .hero-rating .stars { display: inline-flex; gap: 2px; color: var(--gold); }
 .hero-rating .stars svg { width: 15px; height: 15px; }
 .hero-rating b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
-
-/* name chip on the hero portrait */
-.doc-chip {
-  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
-  display: flex; align-items: center; justify-content: space-between; gap: 14px;
-  padding: 20px 24px;
-  background: #FFFFFF;
-  color: var(--deep);
-}
-.doc-chip small { display: block; font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #7B8C93; margin-bottom: 4px; }
-.doc-chip b { font-family: var(--display); font-size: 21px; font-weight: 600; letter-spacing: -0.03em; color: #08222C; }
-
 
 /* ---------- section head ---------- */
 .sec-head { display: flex; gap: 48px 40px; align-items: flex-end; justify-content: space-between; margin-bottom: clamp(30px, 4vw, 52px); flex-wrap: wrap; }
@@ -1015,42 +1107,117 @@ p { margin: 0; }
   <div class="grain" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-copy">
-      <span class="eyebrow reveal">Cosmetic &amp; family dentistry · Midtown</span>
-      <h1 class="h-xl reveal d1"><span>Your best smile</span><em>starts here.</em></h1>
-      <p class="lede reveal d2">Modern dentistry designed around you. From six-month preventive care to full smile makeovers, every visit is quiet, unhurried and completely stress-free.</p>
-      <div class="hero-cta reveal d3">
-        <a class="btn btn-hero" href="#book">Book an Appointment <svg><use href="#i-arrow"/></svg></a>
-        <a class="btn-plain" href="#services">Our Services</a>
-      </div>
-      <p class="hero-rating reveal d3">
+      <span class="rating-pill reveal">
+        <img src="assets/google-wordmark.png" alt="Google" width="54" height="18" onerror="this.remove()">
+        <b>4.9</b>
         <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
-        <b>4.9/5</b><span>from 2,500+ patients in New York</span>
-      </p>
+        <span class="count">2,500+ Google reviews</span>
+      </span>
+      <h1 class="h-xl reveal d1"><span>Your best smile</span><em>starts here.</em></h1>
+      <p class="lede reveal d2">Cosmetic, implant and family dentistry on Madison Avenue, for patients across Midtown, Murray Hill and the Upper East Side.</p>
+      <ul class="hero-list reveal d3">
+        <li><svg><use href="#i-check"/></svg>Porcelain veneers, whitening and bonding</li>
+        <li><svg><use href="#i-check"/></svg>Dental implants, crowns and bridges</li>
+        <li><svg><use href="#i-check"/></svg>Invisalign clear aligners</li>
+      </ul>
     </div>
 
     <div class="hero-art reveal d2">
-      <div class="plate">
-        <img class="photo" src="assets/hero-smile.jpg" alt="Dr. Emily Carter at BrightSmile Dental" onerror="this.remove()">
-        <svg viewBox="0 0 440 484" role="img" aria-label="Portrait placeholder for the lead dentist">
-          <defs>
-            <linearGradient id="heroBg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#0F4451"/><stop offset="100%" stop-color="#06222E"/>
-            </linearGradient>
-          </defs>
-          <rect width="440" height="484" fill="url(#heroBg)"/>
-          <circle cx="220" cy="190" r="150" fill="#17C3B2" fill-opacity=".13"/>
-          <path d="M220 96c42 0 64 31 64 72 0 37-27 67-64 67s-64-30-64-67c0-41 22-72 64-72Z" fill="#DCF2EE"/>
-          <path d="M156 156c0-45 25-70 64-70s64 25 64 70c-9-22-28-33-64-33s-55 11-64 33Z" fill="#0B3141"/>
-          <path d="M220 244c64 0 117 42 128 103 4 22 6 42 6 58H86c0-16 2-36 6-58 11-61 64-103 128-103Z" fill="#F3FBF9"/>
-          <path d="M220 244c13 0 24 2 35 5l-35 61-35-61c11-3 22-5 35-5Z" fill="#17C3B2" fill-opacity=".32"/>
-        </svg>
-        <div class="doc-chip">
-          <div><small>Lead specialist</small><b>Dr. Emily Carter</b></div>
+      <div class="lead-card" id="leadCard">
+        <div class="lead-head">
+          <h2>Your treatment estimate</h2>
+          <span class="lead-count" id="leadCount">Step 1 of 4</span>
+        </div>
+        <p class="lead-sub">Four questions. A real price range. An open slot. About 60 seconds.</p>
+        <div class="lead-bar"><i id="leadBar"></i></div>
+
+        <!-- step 1 -->
+        <section class="lead-step is-on" data-step="1">
+          <h3 class="lead-q" id="q1">What can we help you with today?</h3>
+          <div class="opts" role="radiogroup" aria-labelledby="q1" data-field="service">
+            <button type="button" role="radio" aria-checked="false" data-value="routine"><b>Routine care</b><small>Cleanings and exams</small></button>
+            <button type="button" role="radio" aria-checked="false" data-value="cosmetic"><b>Cosmetic and whitening</b><small>Veneers, bonding, whitening</small></button>
+            <button type="button" role="radio" aria-checked="false" data-value="restorative"><b>Restorative</b><small>Implants, crowns, bridges</small></button>
+            <button type="button" role="radio" aria-checked="false" data-value="straightening"><b>Straightening</b><small>Invisalign or braces</small></button>
+          </div>
+        </section>
+
+        <!-- step 2 -->
+        <section class="lead-step" data-step="2" hidden>
+          <h3 class="lead-q" id="q2">How soon would you like to start?</h3>
+          <div class="opts" role="radiogroup" aria-labelledby="q2" data-field="timing">
+            <button type="button" role="radio" aria-checked="false" data-value="asap"><b>As soon as possible</b><small>I know what I want to fix</small></button>
+            <button type="button" role="radio" aria-checked="false" data-value="months"><b>In the next few months</b><small>Planning it out</small></button>
+            <button type="button" role="radio" aria-checked="false" data-value="exploring"><b>Just exploring</b><small>Want to know what it costs</small></button>
+          </div>
+        </section>
+
+        <!-- step 3 -->
+        <section class="lead-step" data-step="3" hidden>
+          <h3 class="lead-q" id="q3">How would you like to pay?</h3>
+          <div class="opts" role="radiogroup" aria-labelledby="q3" data-field="payment">
+            <button type="button" role="radio" aria-checked="false" data-value="insurance"><b>Through insurance</b><small>We file the claim for you</small></button>
+            <button type="button" role="radio" aria-checked="false" data-value="self"><b>Out of pocket</b><small>Paying in full</small></button>
+            <button type="button" role="radio" aria-checked="false" data-value="plan"><b>Monthly payment plan</b><small>0% over 6 or 12 months</small></button>
+          </div>
+        </section>
+
+        <!-- step 4 -->
+        <section class="lead-step" data-step="4" hidden>
+          <h3 class="lead-q">Where should we send your estimate?</h3>
+          <div class="lead-fields">
+            <div class="lfield">
+              <label for="leadName">Full name</label>
+              <input id="leadName" name="name" type="text" autocomplete="name" placeholder="Jane Whitfield" required>
+            </div>
+            <div class="lfield">
+              <label for="leadEmail">Email</label>
+              <input id="leadEmail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="jane@example.com" required>
+            </div>
+            <div class="lfield">
+              <label for="leadPhone">Phone</label>
+              <input id="leadPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(212) 555-0134" required>
+            </div>
+          </div>
+          <button class="btn btn-primary lead-submit" type="button" id="leadSubmit" disabled>See my price range <svg><use href="#i-arrow"/></svg></button>
+          <p class="lead-fine">No card, no obligation. We only call about this enquiry.</p>
+        </section>
+
+        <!-- step 5 — result -->
+        <section class="lead-step lead-result" data-step="5" hidden>
+          <span class="lead-tag" id="leadTag">Cosmetic and whitening</span>
+          <h3 class="lead-q">Your estimated range</h3>
+          <div class="lead-price" id="leadPrice">—</div>
+          <p class="lead-note" id="leadNote"></p>
+          <p class="lead-month" id="leadMonth" hidden></p>
+          <a class="btn btn-primary lead-cta" id="leadCta" href="#book">Book your visit <svg><use href="#i-arrow"/></svg></a>
+          <p class="lead-fin">Higher than you hoped? <a href="#patients" id="leadFin">See 0% monthly plans</a> — most cases start from $89 a month.</p>
+        </section>
+
+        <div class="lead-nav" id="leadNav">
+          <button type="button" class="lead-arrow" id="leadPrev" aria-label="Previous question">&#8249;</button>
+          <button type="button" class="lead-arrow" id="leadNext" aria-label="Next question">&#8250;</button>
+          <span class="lead-hint" id="leadHint">Pick an option to continue</span>
+        </div>
+      </div>
+
+      <div class="lead-direct">
+        <span>or message a representative directly</span>
+        <div class="lead-direct-btns">
+          <a class="dbtn wa" id="leadWa" href="https://wa.me/12125557820" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 5-1.3A9.9 9.9 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.8-.6-3-1.3-5-4.4-5.2-4.6-.1-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.1c.1.2.1.4 0 .6l-.4.5-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.4Z"/></svg>
+            <span><b>Chat on WhatsApp</b><small>Replies in about a minute</small></span>
+          </a>
+          <a class="dbtn sms" id="leadSms" href="sms:+12125557820">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-2.8-.4L3 21l1.5-4.6A8.3 8.3 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg>
+            <span><b>Text via SMS</b><small>Standard carrier rates apply</small></span>
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <!-- ================= services (pinned stage) ================= -->
 <section class="section" id="services" style="padding-block:0">
   <div class="svc-track" id="svcTrack">
@@ -1943,6 +2110,165 @@ p { margin: 0; }
       track.appendChild(clone);
     });
   }
+
+  /* ---- hero lead qualifier ----------------------------------------------
+     Four questions, then a real range before we ask anyone to book. The range
+     is the qualifier: someone who balks at it never takes a chair slot, and
+     someone who doesn't arrives already knowing the number.                 */
+  (function () {
+    var card = document.getElementById("leadCard");
+    if (!card) return;
+
+    /* replace with the real endpoint (Zapier, Make, n8n, your own handler) */
+    var WEBHOOK_URL = "https://example.com/hooks/brightsmile-leads";
+
+    var PRICING = {
+      routine:      { label: "Routine care",          range: "$95 – $320",      from: 95,
+                      note: "New patient exam, digital X-rays and a clean.",
+                      cta: "Book your exam" },
+      cosmetic:     { label: "Cosmetic and whitening", range: "$450 – $2,400",  from: 450,
+                      note: "In-chair whitening through to a single porcelain veneer.",
+                      cta: "Book a free smile consultation" },
+      restorative:  { label: "Restorative",           range: "$3,200 – $6,500", from: 3200,
+                      note: "Per implant, including the abutment and crown.",
+                      cta: "Book a free implant consultation" },
+      straightening:{ label: "Straightening",         range: "$3,500 – $7,000", from: 3500,
+                      note: "Full Invisalign treatment, first scan to final tray.",
+                      cta: "Book a free aligner assessment" }
+    };
+
+    var answers = { service: "", timing: "", payment: "" };
+    var step = 1, TOTAL = 4;
+
+    var bar = document.getElementById("leadBar"),
+        count = document.getElementById("leadCount"),
+        hint = document.getElementById("leadHint"),
+        nav = document.getElementById("leadNav"),
+        prev = document.getElementById("leadPrev"),
+        next = document.getElementById("leadNext"),
+        submit = document.getElementById("leadSubmit");
+    var panels = Array.prototype.slice.call(card.querySelectorAll(".lead-step"));
+    var inputs = {
+      name: document.getElementById("leadName"),
+      email: document.getElementById("leadEmail"),
+      phone: document.getElementById("leadPhone")
+    };
+
+    function post(body) {
+      body.page = location.href;
+      body.at = new Date().toISOString();
+      try {
+        fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+          keepalive: true          /* survives the page unloading on a tap-out */
+        }).catch(function () {});
+      } catch (e) {}
+    }
+    function track(event, extra) {
+      var body = { type: "event", event: event, answers: answers };
+      if (extra) for (var k in extra) body[k] = extra[k];
+      post(body);
+    }
+
+    function answeredFor(n) {
+      return n === 1 ? answers.service : n === 2 ? answers.timing : n === 3 ? answers.payment : contactValid();
+    }
+
+    function show(n) {
+      step = n;
+      panels.forEach(function (el) { el.hidden = +el.dataset.step !== n; });
+      var done = n > TOTAL;
+      nav.hidden = done;
+      count.textContent = done ? "Done" : "Step " + n + " of " + TOTAL;
+      bar.style.width = (done ? 100 : (n / TOTAL) * 100) + "%";
+      prev.disabled = n === 1 || done;
+      next.disabled = done || n === TOTAL || !answeredFor(n);
+      hint.textContent = done ? "" : (answeredFor(n) ? "" : (n === TOTAL ? "Fill in your details" : "Pick an option to continue"));
+      var focusable = panels[n - 1] && panels[n - 1].querySelector('[role="radio"], input, a.btn');
+      if (focusable && n !== 1) focusable.focus({ preventScroll: true });
+    }
+
+    /* option groups: click or keyboard, then advance on its own */
+    card.querySelectorAll(".opts").forEach(function (group) {
+      var field = group.dataset.field;
+      var btns = Array.prototype.slice.call(group.querySelectorAll('[role="radio"]'));
+      btns.forEach(function (btn, i) {
+        btn.addEventListener("click", function () {
+          btns.forEach(function (b) { b.setAttribute("aria-checked", String(b === btn)); });
+          answers[field] = btn.dataset.value;
+          if (step < TOTAL) setTimeout(function () { show(step + 1); }, 160);
+          else show(step);
+        });
+        btn.addEventListener("keydown", function (e) {
+          var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1
+                : e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : 0;
+          if (!d) return;
+          e.preventDefault();
+          btns[(i + d + btns.length) % btns.length].focus();
+        });
+      });
+    });
+
+    prev.addEventListener("click", function () { if (step > 1) show(step - 1); });
+    next.addEventListener("click", function () { if (answeredFor(step) && step < TOTAL) show(step + 1); });
+
+    /* contact step */
+    function contactValid() {
+      var n = inputs.name.value.trim().length >= 2;
+      var e = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(inputs.email.value.trim());
+      var p = inputs.phone.value.replace(/\D/g, "").length >= 7;
+      return n && e && p;
+    }
+    Object.keys(inputs).forEach(function (k) {
+      inputs[k].addEventListener("input", function () {
+        submit.disabled = !contactValid();
+        hint.textContent = contactValid() ? "" : "Fill in your details";
+      });
+      inputs[k].addEventListener("blur", function () {
+        inputs[k].parentElement.classList.toggle("invalid", inputs[k].value.trim() !== "" && !contactValid());
+      });
+    });
+
+    submit.addEventListener("click", function () {
+      if (!contactValid()) return;
+      var pick = PRICING[answers.service] || PRICING.routine;
+
+      document.getElementById("leadTag").textContent = pick.label;
+      document.getElementById("leadPrice").textContent = pick.range;
+      document.getElementById("leadNote").textContent = pick.note;
+
+      var monthly = document.getElementById("leadMonth");
+      if (answers.payment === "plan") {
+        monthly.textContent = "From about $" + Math.round(pick.from / 12) + " a month over 12 months, interest free.";
+        monthly.hidden = false;
+      } else { monthly.hidden = true; }
+
+      var cta = document.getElementById("leadCta");
+      cta.childNodes[0].nodeValue = pick.cta + " ";
+
+      post({
+        type: "lead",
+        name: inputs.name.value.trim(),
+        email: inputs.email.value.trim(),
+        phone: inputs.phone.value.trim(),
+        service: answers.service,
+        timing: answers.timing,
+        payment: answers.payment,
+        quotedRange: pick.range
+      });
+      show(TOTAL + 1);
+    });
+
+    /* what they did next matters as much as the lead itself */
+    document.getElementById("leadCta").addEventListener("click", function () { track("booking_click"); });
+    document.getElementById("leadFin").addEventListener("click", function () { track("financing_click"); });
+    document.getElementById("leadWa").addEventListener("click", function () { track("whatsapp_click"); });
+    document.getElementById("leadSms").addEventListener("click", function () { track("sms_click"); });
+
+    show(1);
+  })();
 
   /* ---- featured treatment video ---- */
   (function () {
